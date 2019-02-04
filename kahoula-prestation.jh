@@ -1,0 +1,136 @@
+enum UserType {
+	CUSTOMER, PARTNER
+}
+
+enum UserType {
+	CUSTOMER, PARTNER
+}
+
+enum JobStatus{
+	NEW,
+    INIT,
+    ONGOING,
+    CANCELLED,
+    CLOSED
+}
+
+enum BillStatus{
+	NEW,
+    VALIDATION,
+    VALIDATED,
+    SENT,
+    CONFIRMED,
+    CANCELLED,
+    PAID
+}
+
+entity Region {
+	id String,
+	name String required
+}
+
+entity City {
+	id String,
+	name String required
+}
+
+entity Location {
+	id String,
+	regionName Region required,
+	cityName City required
+}
+
+/**
+ * The User entity.
+ * @author arnaud.
+ */
+entity User {
+	/**
+	* The firstname attribute.
+    * @author arnaud.
+	*/
+    id String,
+	firstName String,
+	lastName String,
+    password String,
+	email String,
+	phoneNumber String required,
+	location String required,
+    language Language
+    type UserType required
+
+}
+
+	/**
+	* The Customer entity
+    * @author arnaud.
+	*/
+entity Customer {
+	id String,
+	userId User,
+}
+
+	/**
+	* The Partner entity
+    * @author arnaud.
+	*/
+entity Partner {
+	id String,
+	userId User,
+    cni_pic String required,
+    user_pic String,
+    references String,
+    qualification String
+}
+
+enum JobType {
+	ELECTRICITE,
+    PEINTURE,
+    PLOMBERIE
+}
+
+/**
+ * JobBid entity.
+ * @author arnaud.
+ */
+entity JobBid {
+	id String,
+	description String required,
+	type JobType required,
+	wishDate Instant,
+    customerId Customer required,
+    location Location required,
+    partnerId Partner required,
+    amount Double required,
+    status JobStatus
+}
+
+/**
+ * Bill entity.
+ * @author arnaud.
+ */
+entity Bill {
+	id String,
+	designation String required,
+	quantity Double required,
+	unitPrice Double,
+    jobid JobBid required,
+    status BillStatus
+}
+
+enum Language {
+    FRENCH, ENGLISH
+}
+
+// Set pagination options
+paginate Bill, User, Customer, Partner with infinite-scroll
+paginate JobBid with pagination
+
+// Use Data Transfert Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl except Employee, Job
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
