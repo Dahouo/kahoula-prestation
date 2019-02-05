@@ -6,6 +6,8 @@ import com.afrologix.kahoula.domain.Customer;
 import com.afrologix.kahoula.repository.CustomerRepository;
 import com.afrologix.kahoula.repository.search.CustomerSearchRepository;
 import com.afrologix.kahoula.service.CustomerService;
+import com.afrologix.kahoula.service.dto.CustomerDTO;
+import com.afrologix.kahoula.service.mapper.CustomerMapper;
 import com.afrologix.kahoula.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -48,6 +50,9 @@ public class CustomerResourceIntTest {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private CustomerMapper customerMapper;
 
     @Autowired
     private CustomerService customerService;
@@ -111,9 +116,10 @@ public class CustomerResourceIntTest {
         int databaseSizeBeforeCreate = customerRepository.findAll().size();
 
         // Create the Customer
+        CustomerDTO customerDTO = customerMapper.toDto(customer);
         restCustomerMockMvc.perform(post("/api/customers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(customer)))
+            .content(TestUtil.convertObjectToJsonBytes(customerDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Customer in the database
@@ -132,11 +138,12 @@ public class CustomerResourceIntTest {
 
         // Create the Customer with an existing ID
         customer.setId("existing_id");
+        CustomerDTO customerDTO = customerMapper.toDto(customer);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCustomerMockMvc.perform(post("/api/customers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(customer)))
+            .content(TestUtil.convertObjectToJsonBytes(customerDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Customer in the database
@@ -183,9 +190,7 @@ public class CustomerResourceIntTest {
     @Test
     public void updateCustomer() throws Exception {
         // Initialize the database
-        customerService.save(customer);
-        // As the test used the service layer, reset the Elasticsearch mock repository
-        reset(mockCustomerSearchRepository);
+        customerRepository.save(customer);
 
         int databaseSizeBeforeUpdate = customerRepository.findAll().size();
 
@@ -193,10 +198,11 @@ public class CustomerResourceIntTest {
         Customer updatedCustomer = customerRepository.findById(customer.getId()).get();
         updatedCustomer
             .userId(UPDATED_USER_ID);
+        CustomerDTO customerDTO = customerMapper.toDto(updatedCustomer);
 
         restCustomerMockMvc.perform(put("/api/customers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedCustomer)))
+            .content(TestUtil.convertObjectToJsonBytes(customerDTO)))
             .andExpect(status().isOk());
 
         // Validate the Customer in the database
@@ -214,11 +220,12 @@ public class CustomerResourceIntTest {
         int databaseSizeBeforeUpdate = customerRepository.findAll().size();
 
         // Create the Customer
+        CustomerDTO customerDTO = customerMapper.toDto(customer);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restCustomerMockMvc.perform(put("/api/customers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(customer)))
+            .content(TestUtil.convertObjectToJsonBytes(customerDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Customer in the database
@@ -232,7 +239,7 @@ public class CustomerResourceIntTest {
     @Test
     public void deleteCustomer() throws Exception {
         // Initialize the database
-        customerService.save(customer);
+        customerRepository.save(customer);
 
         int databaseSizeBeforeDelete = customerRepository.findAll().size();
 
@@ -252,7 +259,7 @@ public class CustomerResourceIntTest {
     @Test
     public void searchCustomer() throws Exception {
         // Initialize the database
-        customerService.save(customer);
+        customerRepository.save(customer);
         when(mockCustomerSearchRepository.search(queryStringQuery("id:" + customer.getId())))
             .thenReturn(Collections.singletonList(customer));
         // Search the customer
@@ -275,5 +282,20 @@ public class CustomerResourceIntTest {
         assertThat(customer1).isNotEqualTo(customer2);
         customer1.setId(null);
         assertThat(customer1).isNotEqualTo(customer2);
+    }
+
+    @Test
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(CustomerDTO.class);
+        CustomerDTO customerDTO1 = new CustomerDTO();
+        customerDTO1.setId("id1");
+        CustomerDTO customerDTO2 = new CustomerDTO();
+        assertThat(customerDTO1).isNotEqualTo(customerDTO2);
+        customerDTO2.setId(customerDTO1.getId());
+        assertThat(customerDTO1).isEqualTo(customerDTO2);
+        customerDTO2.setId("id2");
+        assertThat(customerDTO1).isNotEqualTo(customerDTO2);
+        customerDTO1.setId(null);
+        assertThat(customerDTO1).isNotEqualTo(customerDTO2);
     }
 }

@@ -1,8 +1,8 @@
 package com.afrologix.kahoula.web.rest;
-import com.afrologix.kahoula.domain.Bill;
 import com.afrologix.kahoula.service.BillService;
 import com.afrologix.kahoula.web.rest.errors.BadRequestAlertException;
 import com.afrologix.kahoula.web.rest.util.HeaderUtil;
+import com.afrologix.kahoula.service.dto.BillDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,17 +39,17 @@ public class BillResource {
     /**
      * POST  /bills : Create a new bill.
      *
-     * @param bill the bill to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new bill, or with status 400 (Bad Request) if the bill has already an ID
+     * @param billDTO the billDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new billDTO, or with status 400 (Bad Request) if the bill has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/bills")
-    public ResponseEntity<Bill> createBill(@Valid @RequestBody Bill bill) throws URISyntaxException {
-        log.debug("REST request to save Bill : {}", bill);
-        if (bill.getId() != null) {
+    public ResponseEntity<BillDTO> createBill(@Valid @RequestBody BillDTO billDTO) throws URISyntaxException {
+        log.debug("REST request to save Bill : {}", billDTO);
+        if (billDTO.getId() != null) {
             throw new BadRequestAlertException("A new bill cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Bill result = billService.save(bill);
+        BillDTO result = billService.save(billDTO);
         return ResponseEntity.created(new URI("/api/bills/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -58,21 +58,21 @@ public class BillResource {
     /**
      * PUT  /bills : Updates an existing bill.
      *
-     * @param bill the bill to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated bill,
-     * or with status 400 (Bad Request) if the bill is not valid,
-     * or with status 500 (Internal Server Error) if the bill couldn't be updated
+     * @param billDTO the billDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated billDTO,
+     * or with status 400 (Bad Request) if the billDTO is not valid,
+     * or with status 500 (Internal Server Error) if the billDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/bills")
-    public ResponseEntity<Bill> updateBill(@Valid @RequestBody Bill bill) throws URISyntaxException {
-        log.debug("REST request to update Bill : {}", bill);
-        if (bill.getId() == null) {
+    public ResponseEntity<BillDTO> updateBill(@Valid @RequestBody BillDTO billDTO) throws URISyntaxException {
+        log.debug("REST request to update Bill : {}", billDTO);
+        if (billDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Bill result = billService.save(bill);
+        BillDTO result = billService.save(billDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, bill.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, billDTO.getId().toString()))
             .body(result);
     }
 
@@ -82,7 +82,7 @@ public class BillResource {
      * @return the ResponseEntity with status 200 (OK) and the list of bills in body
      */
     @GetMapping("/bills")
-    public List<Bill> getAllBills() {
+    public List<BillDTO> getAllBills() {
         log.debug("REST request to get all Bills");
         return billService.findAll();
     }
@@ -90,20 +90,20 @@ public class BillResource {
     /**
      * GET  /bills/:id : get the "id" bill.
      *
-     * @param id the id of the bill to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the bill, or with status 404 (Not Found)
+     * @param id the id of the billDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the billDTO, or with status 404 (Not Found)
      */
     @GetMapping("/bills/{id}")
-    public ResponseEntity<Bill> getBill(@PathVariable String id) {
+    public ResponseEntity<BillDTO> getBill(@PathVariable String id) {
         log.debug("REST request to get Bill : {}", id);
-        Optional<Bill> bill = billService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(bill);
+        Optional<BillDTO> billDTO = billService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(billDTO);
     }
 
     /**
      * DELETE  /bills/:id : delete the "id" bill.
      *
-     * @param id the id of the bill to delete
+     * @param id the id of the billDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/bills/{id}")
@@ -121,7 +121,7 @@ public class BillResource {
      * @return the result of the search
      */
     @GetMapping("/_search/bills")
-    public List<Bill> searchBills(@RequestParam String query) {
+    public List<BillDTO> searchBills(@RequestParam String query) {
         log.debug("REST request to search Bills for query {}", query);
         return billService.search(query);
     }

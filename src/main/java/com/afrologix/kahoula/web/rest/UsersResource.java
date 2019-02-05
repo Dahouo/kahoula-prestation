@@ -1,8 +1,8 @@
 package com.afrologix.kahoula.web.rest;
-import com.afrologix.kahoula.domain.Users;
 import com.afrologix.kahoula.service.UsersService;
 import com.afrologix.kahoula.web.rest.errors.BadRequestAlertException;
 import com.afrologix.kahoula.web.rest.util.HeaderUtil;
+import com.afrologix.kahoula.service.dto.UsersDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,17 +39,17 @@ public class UsersResource {
     /**
      * POST  /users : Create a new users.
      *
-     * @param users the users to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new users, or with status 400 (Bad Request) if the users has already an ID
+     * @param usersDTO the usersDTO to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new usersDTO, or with status 400 (Bad Request) if the users has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/users")
-    public ResponseEntity<Users> createUsers(@Valid @RequestBody Users users) throws URISyntaxException {
-        log.debug("REST request to save Users : {}", users);
-        if (users.getId() != null) {
+    public ResponseEntity<UsersDTO> createUsers(@Valid @RequestBody UsersDTO usersDTO) throws URISyntaxException {
+        log.debug("REST request to save Users : {}", usersDTO);
+        if (usersDTO.getId() != null) {
             throw new BadRequestAlertException("A new users cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Users result = usersService.save(users);
+        UsersDTO result = usersService.save(usersDTO);
         return ResponseEntity.created(new URI("/api/users/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -58,21 +58,21 @@ public class UsersResource {
     /**
      * PUT  /users : Updates an existing users.
      *
-     * @param users the users to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated users,
-     * or with status 400 (Bad Request) if the users is not valid,
-     * or with status 500 (Internal Server Error) if the users couldn't be updated
+     * @param usersDTO the usersDTO to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated usersDTO,
+     * or with status 400 (Bad Request) if the usersDTO is not valid,
+     * or with status 500 (Internal Server Error) if the usersDTO couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/users")
-    public ResponseEntity<Users> updateUsers(@Valid @RequestBody Users users) throws URISyntaxException {
-        log.debug("REST request to update Users : {}", users);
-        if (users.getId() == null) {
+    public ResponseEntity<UsersDTO> updateUsers(@Valid @RequestBody UsersDTO usersDTO) throws URISyntaxException {
+        log.debug("REST request to update Users : {}", usersDTO);
+        if (usersDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Users result = usersService.save(users);
+        UsersDTO result = usersService.save(usersDTO);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, users.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, usersDTO.getId().toString()))
             .body(result);
     }
 
@@ -82,7 +82,7 @@ public class UsersResource {
      * @return the ResponseEntity with status 200 (OK) and the list of users in body
      */
     @GetMapping("/users")
-    public List<Users> getAllUsers() {
+    public List<UsersDTO> getAllUsers() {
         log.debug("REST request to get all Users");
         return usersService.findAll();
     }
@@ -90,20 +90,20 @@ public class UsersResource {
     /**
      * GET  /users/:id : get the "id" users.
      *
-     * @param id the id of the users to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the users, or with status 404 (Not Found)
+     * @param id the id of the usersDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the usersDTO, or with status 404 (Not Found)
      */
     @GetMapping("/users/{id}")
-    public ResponseEntity<Users> getUsers(@PathVariable String id) {
+    public ResponseEntity<UsersDTO> getUsers(@PathVariable String id) {
         log.debug("REST request to get Users : {}", id);
-        Optional<Users> users = usersService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(users);
+        Optional<UsersDTO> usersDTO = usersService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(usersDTO);
     }
 
     /**
      * DELETE  /users/:id : delete the "id" users.
      *
-     * @param id the id of the users to delete
+     * @param id the id of the usersDTO to delete
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/users/{id}")
@@ -121,7 +121,7 @@ public class UsersResource {
      * @return the result of the search
      */
     @GetMapping("/_search/users")
-    public List<Users> searchUsers(@RequestParam String query) {
+    public List<UsersDTO> searchUsers(@RequestParam String query) {
         log.debug("REST request to search Users for query {}", query);
         return usersService.search(query);
     }

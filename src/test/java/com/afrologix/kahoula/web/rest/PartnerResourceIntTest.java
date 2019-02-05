@@ -6,6 +6,8 @@ import com.afrologix.kahoula.domain.Partner;
 import com.afrologix.kahoula.repository.PartnerRepository;
 import com.afrologix.kahoula.repository.search.PartnerSearchRepository;
 import com.afrologix.kahoula.service.PartnerService;
+import com.afrologix.kahoula.service.dto.PartnerDTO;
+import com.afrologix.kahoula.service.mapper.PartnerMapper;
 import com.afrologix.kahoula.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -60,6 +62,9 @@ public class PartnerResourceIntTest {
 
     @Autowired
     private PartnerRepository partnerRepository;
+
+    @Autowired
+    private PartnerMapper partnerMapper;
 
     @Autowired
     private PartnerService partnerService;
@@ -127,9 +132,10 @@ public class PartnerResourceIntTest {
         int databaseSizeBeforeCreate = partnerRepository.findAll().size();
 
         // Create the Partner
+        PartnerDTO partnerDTO = partnerMapper.toDto(partner);
         restPartnerMockMvc.perform(post("/api/partners")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(partner)))
+            .content(TestUtil.convertObjectToJsonBytes(partnerDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Partner in the database
@@ -152,11 +158,12 @@ public class PartnerResourceIntTest {
 
         // Create the Partner with an existing ID
         partner.setId("existing_id");
+        PartnerDTO partnerDTO = partnerMapper.toDto(partner);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPartnerMockMvc.perform(post("/api/partners")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(partner)))
+            .content(TestUtil.convertObjectToJsonBytes(partnerDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Partner in the database
@@ -174,10 +181,11 @@ public class PartnerResourceIntTest {
         partner.setCniImage(null);
 
         // Create the Partner, which fails.
+        PartnerDTO partnerDTO = partnerMapper.toDto(partner);
 
         restPartnerMockMvc.perform(post("/api/partners")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(partner)))
+            .content(TestUtil.convertObjectToJsonBytes(partnerDTO)))
             .andExpect(status().isBadRequest());
 
         List<Partner> partnerList = partnerRepository.findAll();
@@ -228,9 +236,7 @@ public class PartnerResourceIntTest {
     @Test
     public void updatePartner() throws Exception {
         // Initialize the database
-        partnerService.save(partner);
-        // As the test used the service layer, reset the Elasticsearch mock repository
-        reset(mockPartnerSearchRepository);
+        partnerRepository.save(partner);
 
         int databaseSizeBeforeUpdate = partnerRepository.findAll().size();
 
@@ -242,10 +248,11 @@ public class PartnerResourceIntTest {
             .userImage(UPDATED_USER_IMAGE)
             .references(UPDATED_REFERENCES)
             .qualification(UPDATED_QUALIFICATION);
+        PartnerDTO partnerDTO = partnerMapper.toDto(updatedPartner);
 
         restPartnerMockMvc.perform(put("/api/partners")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedPartner)))
+            .content(TestUtil.convertObjectToJsonBytes(partnerDTO)))
             .andExpect(status().isOk());
 
         // Validate the Partner in the database
@@ -267,11 +274,12 @@ public class PartnerResourceIntTest {
         int databaseSizeBeforeUpdate = partnerRepository.findAll().size();
 
         // Create the Partner
+        PartnerDTO partnerDTO = partnerMapper.toDto(partner);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restPartnerMockMvc.perform(put("/api/partners")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(partner)))
+            .content(TestUtil.convertObjectToJsonBytes(partnerDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Partner in the database
@@ -285,7 +293,7 @@ public class PartnerResourceIntTest {
     @Test
     public void deletePartner() throws Exception {
         // Initialize the database
-        partnerService.save(partner);
+        partnerRepository.save(partner);
 
         int databaseSizeBeforeDelete = partnerRepository.findAll().size();
 
@@ -305,7 +313,7 @@ public class PartnerResourceIntTest {
     @Test
     public void searchPartner() throws Exception {
         // Initialize the database
-        partnerService.save(partner);
+        partnerRepository.save(partner);
         when(mockPartnerSearchRepository.search(queryStringQuery("id:" + partner.getId())))
             .thenReturn(Collections.singletonList(partner));
         // Search the partner
@@ -332,5 +340,20 @@ public class PartnerResourceIntTest {
         assertThat(partner1).isNotEqualTo(partner2);
         partner1.setId(null);
         assertThat(partner1).isNotEqualTo(partner2);
+    }
+
+    @Test
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(PartnerDTO.class);
+        PartnerDTO partnerDTO1 = new PartnerDTO();
+        partnerDTO1.setId("id1");
+        PartnerDTO partnerDTO2 = new PartnerDTO();
+        assertThat(partnerDTO1).isNotEqualTo(partnerDTO2);
+        partnerDTO2.setId(partnerDTO1.getId());
+        assertThat(partnerDTO1).isEqualTo(partnerDTO2);
+        partnerDTO2.setId("id2");
+        assertThat(partnerDTO1).isNotEqualTo(partnerDTO2);
+        partnerDTO1.setId(null);
+        assertThat(partnerDTO1).isNotEqualTo(partnerDTO2);
     }
 }

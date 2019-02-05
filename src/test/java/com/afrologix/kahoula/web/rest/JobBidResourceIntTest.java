@@ -6,6 +6,8 @@ import com.afrologix.kahoula.domain.JobBid;
 import com.afrologix.kahoula.repository.JobBidRepository;
 import com.afrologix.kahoula.repository.search.JobBidSearchRepository;
 import com.afrologix.kahoula.service.JobBidService;
+import com.afrologix.kahoula.service.dto.JobBidDTO;
+import com.afrologix.kahoula.service.mapper.JobBidMapper;
 import com.afrologix.kahoula.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -77,6 +79,9 @@ public class JobBidResourceIntTest {
     private JobBidRepository jobBidRepository;
 
     @Autowired
+    private JobBidMapper jobBidMapper;
+
+    @Autowired
     private JobBidService jobBidService;
 
     /**
@@ -145,9 +150,10 @@ public class JobBidResourceIntTest {
         int databaseSizeBeforeCreate = jobBidRepository.findAll().size();
 
         // Create the JobBid
+        JobBidDTO jobBidDTO = jobBidMapper.toDto(jobBid);
         restJobBidMockMvc.perform(post("/api/job-bids")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(jobBid)))
+            .content(TestUtil.convertObjectToJsonBytes(jobBidDTO)))
             .andExpect(status().isCreated());
 
         // Validate the JobBid in the database
@@ -173,11 +179,12 @@ public class JobBidResourceIntTest {
 
         // Create the JobBid with an existing ID
         jobBid.setId("existing_id");
+        JobBidDTO jobBidDTO = jobBidMapper.toDto(jobBid);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restJobBidMockMvc.perform(post("/api/job-bids")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(jobBid)))
+            .content(TestUtil.convertObjectToJsonBytes(jobBidDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the JobBid in the database
@@ -195,10 +202,11 @@ public class JobBidResourceIntTest {
         jobBid.setDescription(null);
 
         // Create the JobBid, which fails.
+        JobBidDTO jobBidDTO = jobBidMapper.toDto(jobBid);
 
         restJobBidMockMvc.perform(post("/api/job-bids")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(jobBid)))
+            .content(TestUtil.convertObjectToJsonBytes(jobBidDTO)))
             .andExpect(status().isBadRequest());
 
         List<JobBid> jobBidList = jobBidRepository.findAll();
@@ -212,10 +220,11 @@ public class JobBidResourceIntTest {
         jobBid.setType(null);
 
         // Create the JobBid, which fails.
+        JobBidDTO jobBidDTO = jobBidMapper.toDto(jobBid);
 
         restJobBidMockMvc.perform(post("/api/job-bids")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(jobBid)))
+            .content(TestUtil.convertObjectToJsonBytes(jobBidDTO)))
             .andExpect(status().isBadRequest());
 
         List<JobBid> jobBidList = jobBidRepository.findAll();
@@ -229,10 +238,11 @@ public class JobBidResourceIntTest {
         jobBid.setCustomerId(null);
 
         // Create the JobBid, which fails.
+        JobBidDTO jobBidDTO = jobBidMapper.toDto(jobBid);
 
         restJobBidMockMvc.perform(post("/api/job-bids")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(jobBid)))
+            .content(TestUtil.convertObjectToJsonBytes(jobBidDTO)))
             .andExpect(status().isBadRequest());
 
         List<JobBid> jobBidList = jobBidRepository.findAll();
@@ -246,10 +256,11 @@ public class JobBidResourceIntTest {
         jobBid.setLocation(null);
 
         // Create the JobBid, which fails.
+        JobBidDTO jobBidDTO = jobBidMapper.toDto(jobBid);
 
         restJobBidMockMvc.perform(post("/api/job-bids")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(jobBid)))
+            .content(TestUtil.convertObjectToJsonBytes(jobBidDTO)))
             .andExpect(status().isBadRequest());
 
         List<JobBid> jobBidList = jobBidRepository.findAll();
@@ -263,10 +274,11 @@ public class JobBidResourceIntTest {
         jobBid.setPartnerId(null);
 
         // Create the JobBid, which fails.
+        JobBidDTO jobBidDTO = jobBidMapper.toDto(jobBid);
 
         restJobBidMockMvc.perform(post("/api/job-bids")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(jobBid)))
+            .content(TestUtil.convertObjectToJsonBytes(jobBidDTO)))
             .andExpect(status().isBadRequest());
 
         List<JobBid> jobBidList = jobBidRepository.findAll();
@@ -280,10 +292,11 @@ public class JobBidResourceIntTest {
         jobBid.setAmount(null);
 
         // Create the JobBid, which fails.
+        JobBidDTO jobBidDTO = jobBidMapper.toDto(jobBid);
 
         restJobBidMockMvc.perform(post("/api/job-bids")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(jobBid)))
+            .content(TestUtil.convertObjectToJsonBytes(jobBidDTO)))
             .andExpect(status().isBadRequest());
 
         List<JobBid> jobBidList = jobBidRepository.findAll();
@@ -340,9 +353,7 @@ public class JobBidResourceIntTest {
     @Test
     public void updateJobBid() throws Exception {
         // Initialize the database
-        jobBidService.save(jobBid);
-        // As the test used the service layer, reset the Elasticsearch mock repository
-        reset(mockJobBidSearchRepository);
+        jobBidRepository.save(jobBid);
 
         int databaseSizeBeforeUpdate = jobBidRepository.findAll().size();
 
@@ -357,10 +368,11 @@ public class JobBidResourceIntTest {
             .partnerId(UPDATED_PARTNER_ID)
             .amount(UPDATED_AMOUNT)
             .status(UPDATED_STATUS);
+        JobBidDTO jobBidDTO = jobBidMapper.toDto(updatedJobBid);
 
         restJobBidMockMvc.perform(put("/api/job-bids")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedJobBid)))
+            .content(TestUtil.convertObjectToJsonBytes(jobBidDTO)))
             .andExpect(status().isOk());
 
         // Validate the JobBid in the database
@@ -385,11 +397,12 @@ public class JobBidResourceIntTest {
         int databaseSizeBeforeUpdate = jobBidRepository.findAll().size();
 
         // Create the JobBid
+        JobBidDTO jobBidDTO = jobBidMapper.toDto(jobBid);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restJobBidMockMvc.perform(put("/api/job-bids")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(jobBid)))
+            .content(TestUtil.convertObjectToJsonBytes(jobBidDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the JobBid in the database
@@ -403,7 +416,7 @@ public class JobBidResourceIntTest {
     @Test
     public void deleteJobBid() throws Exception {
         // Initialize the database
-        jobBidService.save(jobBid);
+        jobBidRepository.save(jobBid);
 
         int databaseSizeBeforeDelete = jobBidRepository.findAll().size();
 
@@ -423,7 +436,7 @@ public class JobBidResourceIntTest {
     @Test
     public void searchJobBid() throws Exception {
         // Initialize the database
-        jobBidService.save(jobBid);
+        jobBidRepository.save(jobBid);
         when(mockJobBidSearchRepository.search(queryStringQuery("id:" + jobBid.getId()), PageRequest.of(0, 20)))
             .thenReturn(new PageImpl<>(Collections.singletonList(jobBid), PageRequest.of(0, 1), 1));
         // Search the jobBid
@@ -453,5 +466,20 @@ public class JobBidResourceIntTest {
         assertThat(jobBid1).isNotEqualTo(jobBid2);
         jobBid1.setId(null);
         assertThat(jobBid1).isNotEqualTo(jobBid2);
+    }
+
+    @Test
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(JobBidDTO.class);
+        JobBidDTO jobBidDTO1 = new JobBidDTO();
+        jobBidDTO1.setId("id1");
+        JobBidDTO jobBidDTO2 = new JobBidDTO();
+        assertThat(jobBidDTO1).isNotEqualTo(jobBidDTO2);
+        jobBidDTO2.setId(jobBidDTO1.getId());
+        assertThat(jobBidDTO1).isEqualTo(jobBidDTO2);
+        jobBidDTO2.setId("id2");
+        assertThat(jobBidDTO1).isNotEqualTo(jobBidDTO2);
+        jobBidDTO1.setId(null);
+        assertThat(jobBidDTO1).isNotEqualTo(jobBidDTO2);
     }
 }

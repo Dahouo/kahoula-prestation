@@ -1,24 +1,55 @@
 package com.afrologix.kahoula.service;
 
 import com.afrologix.kahoula.domain.JobBid;
+import com.afrologix.kahoula.repository.JobBidRepository;
+import com.afrologix.kahoula.repository.search.JobBidSearchRepository;
+import com.afrologix.kahoula.service.dto.JobBidDTO;
+import com.afrologix.kahoula.service.mapper.JobBidMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static org.elasticsearch.index.query.QueryBuilders.*;
+
 /**
- * Service Interface for managing JobBid.
+ * Service Implementation for managing JobBid.
  */
-public interface JobBidService {
+@Service
+public class JobBidService {
+
+    private final Logger log = LoggerFactory.getLogger(JobBidService.class);
+
+    private final JobBidRepository jobBidRepository;
+
+    private final JobBidMapper jobBidMapper;
+
+    private final JobBidSearchRepository jobBidSearchRepository;
+
+    public JobBidService(JobBidRepository jobBidRepository, JobBidMapper jobBidMapper, JobBidSearchRepository jobBidSearchRepository) {
+        this.jobBidRepository = jobBidRepository;
+        this.jobBidMapper = jobBidMapper;
+        this.jobBidSearchRepository = jobBidSearchRepository;
+    }
 
     /**
      * Save a jobBid.
      *
-     * @param jobBid the entity to save
+     * @param jobBidDTO the entity to save
      * @return the persisted entity
      */
-    JobBid save(JobBid jobBid);
+    public JobBidDTO save(JobBidDTO jobBidDTO) {
+        log.debug("Request to save JobBid : {}", jobBidDTO);
+        JobBid jobBid = jobBidMapper.toEntity(jobBidDTO);
+        jobBid = jobBidRepository.save(jobBid);
+        JobBidDTO result = jobBidMapper.toDto(jobBid);
+        jobBidSearchRepository.save(jobBid);
+        return result;
+    }
 
     /**
      * Get all the jobBids.
@@ -26,31 +57,45 @@ public interface JobBidService {
      * @param pageable the pagination information
      * @return the list of entities
      */
-    Page<JobBid> findAll(Pageable pageable);
+    public Page<JobBidDTO> findAll(Pageable pageable) {
+        log.debug("Request to get all JobBids");
+        return jobBidRepository.findAll(pageable)
+            .map(jobBidMapper::toDto);
+    }
 
 
     /**
-     * Get the "id" jobBid.
+     * Get one jobBid by id.
      *
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<JobBid> findOne(String id);
+    public Optional<JobBidDTO> findOne(String id) {
+        log.debug("Request to get JobBid : {}", id);
+        return jobBidRepository.findById(id)
+            .map(jobBidMapper::toDto);
+    }
 
     /**
-     * Delete the "id" jobBid.
+     * Delete the jobBid by id.
      *
      * @param id the id of the entity
      */
-    void delete(String id);
+    public void delete(String id) {
+        log.debug("Request to delete JobBid : {}", id);        jobBidRepository.deleteById(id);
+        jobBidSearchRepository.deleteById(id);
+    }
 
     /**
      * Search for the jobBid corresponding to the query.
      *
      * @param query the query of the search
-     * 
      * @param pageable the pagination information
      * @return the list of entities
      */
-    Page<JobBid> search(String query, Pageable pageable);
+    public Page<JobBidDTO> search(String query, Pageable pageable) {
+        log.debug("Request to search for a page of JobBids for query {}", query);
+        return jobBidSearchRepository.search(queryStringQuery(query), pageable)
+            .map(jobBidMapper::toDto);
+    }
 }

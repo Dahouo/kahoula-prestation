@@ -6,6 +6,8 @@ import com.afrologix.kahoula.domain.Location;
 import com.afrologix.kahoula.repository.LocationRepository;
 import com.afrologix.kahoula.repository.search.LocationSearchRepository;
 import com.afrologix.kahoula.service.LocationService;
+import com.afrologix.kahoula.service.dto.LocationDTO;
+import com.afrologix.kahoula.service.mapper.LocationMapper;
 import com.afrologix.kahoula.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -51,6 +53,9 @@ public class LocationResourceIntTest {
 
     @Autowired
     private LocationRepository locationRepository;
+
+    @Autowired
+    private LocationMapper locationMapper;
 
     @Autowired
     private LocationService locationService;
@@ -115,9 +120,10 @@ public class LocationResourceIntTest {
         int databaseSizeBeforeCreate = locationRepository.findAll().size();
 
         // Create the Location
+        LocationDTO locationDTO = locationMapper.toDto(location);
         restLocationMockMvc.perform(post("/api/locations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(location)))
+            .content(TestUtil.convertObjectToJsonBytes(locationDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Location in the database
@@ -137,11 +143,12 @@ public class LocationResourceIntTest {
 
         // Create the Location with an existing ID
         location.setId("existing_id");
+        LocationDTO locationDTO = locationMapper.toDto(location);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restLocationMockMvc.perform(post("/api/locations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(location)))
+            .content(TestUtil.convertObjectToJsonBytes(locationDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Location in the database
@@ -159,10 +166,11 @@ public class LocationResourceIntTest {
         location.setRegionName(null);
 
         // Create the Location, which fails.
+        LocationDTO locationDTO = locationMapper.toDto(location);
 
         restLocationMockMvc.perform(post("/api/locations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(location)))
+            .content(TestUtil.convertObjectToJsonBytes(locationDTO)))
             .andExpect(status().isBadRequest());
 
         List<Location> locationList = locationRepository.findAll();
@@ -176,10 +184,11 @@ public class LocationResourceIntTest {
         location.setCityName(null);
 
         // Create the Location, which fails.
+        LocationDTO locationDTO = locationMapper.toDto(location);
 
         restLocationMockMvc.perform(post("/api/locations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(location)))
+            .content(TestUtil.convertObjectToJsonBytes(locationDTO)))
             .andExpect(status().isBadRequest());
 
         List<Location> locationList = locationRepository.findAll();
@@ -224,9 +233,7 @@ public class LocationResourceIntTest {
     @Test
     public void updateLocation() throws Exception {
         // Initialize the database
-        locationService.save(location);
-        // As the test used the service layer, reset the Elasticsearch mock repository
-        reset(mockLocationSearchRepository);
+        locationRepository.save(location);
 
         int databaseSizeBeforeUpdate = locationRepository.findAll().size();
 
@@ -235,10 +242,11 @@ public class LocationResourceIntTest {
         updatedLocation
             .regionName(UPDATED_REGION_NAME)
             .cityName(UPDATED_CITY_NAME);
+        LocationDTO locationDTO = locationMapper.toDto(updatedLocation);
 
         restLocationMockMvc.perform(put("/api/locations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedLocation)))
+            .content(TestUtil.convertObjectToJsonBytes(locationDTO)))
             .andExpect(status().isOk());
 
         // Validate the Location in the database
@@ -257,11 +265,12 @@ public class LocationResourceIntTest {
         int databaseSizeBeforeUpdate = locationRepository.findAll().size();
 
         // Create the Location
+        LocationDTO locationDTO = locationMapper.toDto(location);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restLocationMockMvc.perform(put("/api/locations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(location)))
+            .content(TestUtil.convertObjectToJsonBytes(locationDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Location in the database
@@ -275,7 +284,7 @@ public class LocationResourceIntTest {
     @Test
     public void deleteLocation() throws Exception {
         // Initialize the database
-        locationService.save(location);
+        locationRepository.save(location);
 
         int databaseSizeBeforeDelete = locationRepository.findAll().size();
 
@@ -295,7 +304,7 @@ public class LocationResourceIntTest {
     @Test
     public void searchLocation() throws Exception {
         // Initialize the database
-        locationService.save(location);
+        locationRepository.save(location);
         when(mockLocationSearchRepository.search(queryStringQuery("id:" + location.getId())))
             .thenReturn(Collections.singletonList(location));
         // Search the location
@@ -319,5 +328,20 @@ public class LocationResourceIntTest {
         assertThat(location1).isNotEqualTo(location2);
         location1.setId(null);
         assertThat(location1).isNotEqualTo(location2);
+    }
+
+    @Test
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(LocationDTO.class);
+        LocationDTO locationDTO1 = new LocationDTO();
+        locationDTO1.setId("id1");
+        LocationDTO locationDTO2 = new LocationDTO();
+        assertThat(locationDTO1).isNotEqualTo(locationDTO2);
+        locationDTO2.setId(locationDTO1.getId());
+        assertThat(locationDTO1).isEqualTo(locationDTO2);
+        locationDTO2.setId("id2");
+        assertThat(locationDTO1).isNotEqualTo(locationDTO2);
+        locationDTO1.setId(null);
+        assertThat(locationDTO1).isNotEqualTo(locationDTO2);
     }
 }

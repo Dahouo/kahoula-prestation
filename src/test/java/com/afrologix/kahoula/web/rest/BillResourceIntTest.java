@@ -6,6 +6,8 @@ import com.afrologix.kahoula.domain.Bill;
 import com.afrologix.kahoula.repository.BillRepository;
 import com.afrologix.kahoula.repository.search.BillSearchRepository;
 import com.afrologix.kahoula.service.BillService;
+import com.afrologix.kahoula.service.dto.BillDTO;
+import com.afrologix.kahoula.service.mapper.BillMapper;
 import com.afrologix.kahoula.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -61,6 +63,9 @@ public class BillResourceIntTest {
 
     @Autowired
     private BillRepository billRepository;
+
+    @Autowired
+    private BillMapper billMapper;
 
     @Autowired
     private BillService billService;
@@ -128,9 +133,10 @@ public class BillResourceIntTest {
         int databaseSizeBeforeCreate = billRepository.findAll().size();
 
         // Create the Bill
+        BillDTO billDTO = billMapper.toDto(bill);
         restBillMockMvc.perform(post("/api/bills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(bill)))
+            .content(TestUtil.convertObjectToJsonBytes(billDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Bill in the database
@@ -153,11 +159,12 @@ public class BillResourceIntTest {
 
         // Create the Bill with an existing ID
         bill.setId("existing_id");
+        BillDTO billDTO = billMapper.toDto(bill);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restBillMockMvc.perform(post("/api/bills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(bill)))
+            .content(TestUtil.convertObjectToJsonBytes(billDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Bill in the database
@@ -175,10 +182,11 @@ public class BillResourceIntTest {
         bill.setDesignation(null);
 
         // Create the Bill, which fails.
+        BillDTO billDTO = billMapper.toDto(bill);
 
         restBillMockMvc.perform(post("/api/bills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(bill)))
+            .content(TestUtil.convertObjectToJsonBytes(billDTO)))
             .andExpect(status().isBadRequest());
 
         List<Bill> billList = billRepository.findAll();
@@ -192,10 +200,11 @@ public class BillResourceIntTest {
         bill.setQuantity(null);
 
         // Create the Bill, which fails.
+        BillDTO billDTO = billMapper.toDto(bill);
 
         restBillMockMvc.perform(post("/api/bills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(bill)))
+            .content(TestUtil.convertObjectToJsonBytes(billDTO)))
             .andExpect(status().isBadRequest());
 
         List<Bill> billList = billRepository.findAll();
@@ -209,10 +218,11 @@ public class BillResourceIntTest {
         bill.setJobid(null);
 
         // Create the Bill, which fails.
+        BillDTO billDTO = billMapper.toDto(bill);
 
         restBillMockMvc.perform(post("/api/bills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(bill)))
+            .content(TestUtil.convertObjectToJsonBytes(billDTO)))
             .andExpect(status().isBadRequest());
 
         List<Bill> billList = billRepository.findAll();
@@ -263,9 +273,7 @@ public class BillResourceIntTest {
     @Test
     public void updateBill() throws Exception {
         // Initialize the database
-        billService.save(bill);
-        // As the test used the service layer, reset the Elasticsearch mock repository
-        reset(mockBillSearchRepository);
+        billRepository.save(bill);
 
         int databaseSizeBeforeUpdate = billRepository.findAll().size();
 
@@ -277,10 +285,11 @@ public class BillResourceIntTest {
             .unitPrice(UPDATED_UNIT_PRICE)
             .jobid(UPDATED_JOBID)
             .status(UPDATED_STATUS);
+        BillDTO billDTO = billMapper.toDto(updatedBill);
 
         restBillMockMvc.perform(put("/api/bills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedBill)))
+            .content(TestUtil.convertObjectToJsonBytes(billDTO)))
             .andExpect(status().isOk());
 
         // Validate the Bill in the database
@@ -302,11 +311,12 @@ public class BillResourceIntTest {
         int databaseSizeBeforeUpdate = billRepository.findAll().size();
 
         // Create the Bill
+        BillDTO billDTO = billMapper.toDto(bill);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restBillMockMvc.perform(put("/api/bills")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(bill)))
+            .content(TestUtil.convertObjectToJsonBytes(billDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Bill in the database
@@ -320,7 +330,7 @@ public class BillResourceIntTest {
     @Test
     public void deleteBill() throws Exception {
         // Initialize the database
-        billService.save(bill);
+        billRepository.save(bill);
 
         int databaseSizeBeforeDelete = billRepository.findAll().size();
 
@@ -340,7 +350,7 @@ public class BillResourceIntTest {
     @Test
     public void searchBill() throws Exception {
         // Initialize the database
-        billService.save(bill);
+        billRepository.save(bill);
         when(mockBillSearchRepository.search(queryStringQuery("id:" + bill.getId())))
             .thenReturn(Collections.singletonList(bill));
         // Search the bill
@@ -367,5 +377,20 @@ public class BillResourceIntTest {
         assertThat(bill1).isNotEqualTo(bill2);
         bill1.setId(null);
         assertThat(bill1).isNotEqualTo(bill2);
+    }
+
+    @Test
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(BillDTO.class);
+        BillDTO billDTO1 = new BillDTO();
+        billDTO1.setId("id1");
+        BillDTO billDTO2 = new BillDTO();
+        assertThat(billDTO1).isNotEqualTo(billDTO2);
+        billDTO2.setId(billDTO1.getId());
+        assertThat(billDTO1).isEqualTo(billDTO2);
+        billDTO2.setId("id2");
+        assertThat(billDTO1).isNotEqualTo(billDTO2);
+        billDTO1.setId(null);
+        assertThat(billDTO1).isNotEqualTo(billDTO2);
     }
 }
