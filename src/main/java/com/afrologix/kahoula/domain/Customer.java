@@ -1,7 +1,6 @@
 package com.afrologix.kahoula.domain;
 
 
-import io.swagger.annotations.ApiModel;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,7 +13,6 @@ import java.util.Objects;
  * The Customer entity
  * @author arnaud.
  */
-@ApiModel(description = "The Customer entity @author arnaud.")
 @Document(collection = "customer")
 @org.springframework.data.elasticsearch.annotations.Document(indexName = "customer")
 public class Customer implements Serializable {

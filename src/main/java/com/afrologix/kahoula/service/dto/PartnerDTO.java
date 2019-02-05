@@ -1,45 +1,29 @@
-package com.afrologix.kahoula.domain;
-
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DBRef;
+package com.afrologix.kahoula.service.dto;
+import io.swagger.annotations.ApiModel;
 import javax.validation.constraints.*;
-
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * The Partner entity
- * @author arnaud.
+ * A DTO for the Partner entity.
  */
-@Document(collection = "partner")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "partner")
-public class Partner implements Serializable {
+@ApiModel(description = "The Partner entity @author arnaud.")
+public class PartnerDTO implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    
-    @Id
     private String id;
 
-    @Field("user_id")
     private String userId;
 
     @NotNull
-    @Field("cni_image")
     private String cniImage;
 
-    @Field("user_image")
     private String userImage;
 
-    @Field("references")
     private String references;
 
-    @Field("qualification")
     private String qualification;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+
     public String getId() {
         return id;
     }
@@ -52,22 +36,12 @@ public class Partner implements Serializable {
         return userId;
     }
 
-    public Partner userId(String userId) {
-        this.userId = userId;
-        return this;
-    }
-
     public void setUserId(String userId) {
         this.userId = userId;
     }
 
     public String getCniImage() {
         return cniImage;
-    }
-
-    public Partner cniImage(String cniImage) {
-        this.cniImage = cniImage;
-        return this;
     }
 
     public void setCniImage(String cniImage) {
@@ -78,22 +52,12 @@ public class Partner implements Serializable {
         return userImage;
     }
 
-    public Partner userImage(String userImage) {
-        this.userImage = userImage;
-        return this;
-    }
-
     public void setUserImage(String userImage) {
         this.userImage = userImage;
     }
 
     public String getReferences() {
         return references;
-    }
-
-    public Partner references(String references) {
-        this.references = references;
-        return this;
     }
 
     public void setReferences(String references) {
@@ -104,15 +68,9 @@ public class Partner implements Serializable {
         return qualification;
     }
 
-    public Partner qualification(String qualification) {
-        this.qualification = qualification;
-        return this;
-    }
-
     public void setQualification(String qualification) {
         this.qualification = qualification;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -122,11 +80,12 @@ public class Partner implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Partner partner = (Partner) o;
-        if (partner.getId() == null || getId() == null) {
+
+        PartnerDTO partnerDTO = (PartnerDTO) o;
+        if (partnerDTO.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), partner.getId());
+        return Objects.equals(getId(), partnerDTO.getId());
     }
 
     @Override
@@ -136,7 +95,7 @@ public class Partner implements Serializable {
 
     @Override
     public String toString() {
-        return "Partner{" +
+        return "PartnerDTO{" +
             "id=" + getId() +
             ", userId='" + getUserId() + "'" +
             ", cniImage='" + getCniImage() + "'" +

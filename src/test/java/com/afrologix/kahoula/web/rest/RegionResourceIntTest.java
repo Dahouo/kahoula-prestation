@@ -6,6 +6,8 @@ import com.afrologix.kahoula.domain.Region;
 import com.afrologix.kahoula.repository.RegionRepository;
 import com.afrologix.kahoula.repository.search.RegionSearchRepository;
 import com.afrologix.kahoula.service.RegionService;
+import com.afrologix.kahoula.service.dto.RegionDTO;
+import com.afrologix.kahoula.service.mapper.RegionMapper;
 import com.afrologix.kahoula.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -48,6 +50,9 @@ public class RegionResourceIntTest {
 
     @Autowired
     private RegionRepository regionRepository;
+
+    @Autowired
+    private RegionMapper regionMapper;
 
     @Autowired
     private RegionService regionService;
@@ -111,9 +116,10 @@ public class RegionResourceIntTest {
         int databaseSizeBeforeCreate = regionRepository.findAll().size();
 
         // Create the Region
+        RegionDTO regionDTO = regionMapper.toDto(region);
         restRegionMockMvc.perform(post("/api/regions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(region)))
+            .content(TestUtil.convertObjectToJsonBytes(regionDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Region in the database
@@ -132,11 +138,12 @@ public class RegionResourceIntTest {
 
         // Create the Region with an existing ID
         region.setId("existing_id");
+        RegionDTO regionDTO = regionMapper.toDto(region);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRegionMockMvc.perform(post("/api/regions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(region)))
+            .content(TestUtil.convertObjectToJsonBytes(regionDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Region in the database
@@ -154,10 +161,11 @@ public class RegionResourceIntTest {
         region.setName(null);
 
         // Create the Region, which fails.
+        RegionDTO regionDTO = regionMapper.toDto(region);
 
         restRegionMockMvc.perform(post("/api/regions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(region)))
+            .content(TestUtil.convertObjectToJsonBytes(regionDTO)))
             .andExpect(status().isBadRequest());
 
         List<Region> regionList = regionRepository.findAll();
@@ -200,9 +208,7 @@ public class RegionResourceIntTest {
     @Test
     public void updateRegion() throws Exception {
         // Initialize the database
-        regionService.save(region);
-        // As the test used the service layer, reset the Elasticsearch mock repository
-        reset(mockRegionSearchRepository);
+        regionRepository.save(region);
 
         int databaseSizeBeforeUpdate = regionRepository.findAll().size();
 
@@ -210,10 +216,11 @@ public class RegionResourceIntTest {
         Region updatedRegion = regionRepository.findById(region.getId()).get();
         updatedRegion
             .name(UPDATED_NAME);
+        RegionDTO regionDTO = regionMapper.toDto(updatedRegion);
 
         restRegionMockMvc.perform(put("/api/regions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedRegion)))
+            .content(TestUtil.convertObjectToJsonBytes(regionDTO)))
             .andExpect(status().isOk());
 
         // Validate the Region in the database
@@ -231,11 +238,12 @@ public class RegionResourceIntTest {
         int databaseSizeBeforeUpdate = regionRepository.findAll().size();
 
         // Create the Region
+        RegionDTO regionDTO = regionMapper.toDto(region);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restRegionMockMvc.perform(put("/api/regions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(region)))
+            .content(TestUtil.convertObjectToJsonBytes(regionDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Region in the database
@@ -249,7 +257,7 @@ public class RegionResourceIntTest {
     @Test
     public void deleteRegion() throws Exception {
         // Initialize the database
-        regionService.save(region);
+        regionRepository.save(region);
 
         int databaseSizeBeforeDelete = regionRepository.findAll().size();
 
@@ -269,7 +277,7 @@ public class RegionResourceIntTest {
     @Test
     public void searchRegion() throws Exception {
         // Initialize the database
-        regionService.save(region);
+        regionRepository.save(region);
         when(mockRegionSearchRepository.search(queryStringQuery("id:" + region.getId())))
             .thenReturn(Collections.singletonList(region));
         // Search the region
@@ -292,5 +300,20 @@ public class RegionResourceIntTest {
         assertThat(region1).isNotEqualTo(region2);
         region1.setId(null);
         assertThat(region1).isNotEqualTo(region2);
+    }
+
+    @Test
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(RegionDTO.class);
+        RegionDTO regionDTO1 = new RegionDTO();
+        regionDTO1.setId("id1");
+        RegionDTO regionDTO2 = new RegionDTO();
+        assertThat(regionDTO1).isNotEqualTo(regionDTO2);
+        regionDTO2.setId(regionDTO1.getId());
+        assertThat(regionDTO1).isEqualTo(regionDTO2);
+        regionDTO2.setId("id2");
+        assertThat(regionDTO1).isNotEqualTo(regionDTO2);
+        regionDTO1.setId(null);
+        assertThat(regionDTO1).isNotEqualTo(regionDTO2);
     }
 }

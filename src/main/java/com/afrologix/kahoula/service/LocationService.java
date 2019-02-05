@@ -1,52 +1,104 @@
 package com.afrologix.kahoula.service;
 
 import com.afrologix.kahoula.domain.Location;
+import com.afrologix.kahoula.repository.LocationRepository;
+import com.afrologix.kahoula.repository.search.LocationSearchRepository;
+import com.afrologix.kahoula.service.dto.LocationDTO;
+import com.afrologix.kahoula.service.mapper.LocationMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import org.springframework.stereotype.Service;
+
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
- * Service Interface for managing Location.
+ * Service Implementation for managing Location.
  */
-public interface LocationService {
+@Service
+public class LocationService {
+
+    private final Logger log = LoggerFactory.getLogger(LocationService.class);
+
+    private final LocationRepository locationRepository;
+
+    private final LocationMapper locationMapper;
+
+    private final LocationSearchRepository locationSearchRepository;
+
+    public LocationService(LocationRepository locationRepository, LocationMapper locationMapper, LocationSearchRepository locationSearchRepository) {
+        this.locationRepository = locationRepository;
+        this.locationMapper = locationMapper;
+        this.locationSearchRepository = locationSearchRepository;
+    }
 
     /**
      * Save a location.
      *
-     * @param location the entity to save
+     * @param locationDTO the entity to save
      * @return the persisted entity
      */
-    Location save(Location location);
+    public LocationDTO save(LocationDTO locationDTO) {
+        log.debug("Request to save Location : {}", locationDTO);
+        Location location = locationMapper.toEntity(locationDTO);
+        location = locationRepository.save(location);
+        LocationDTO result = locationMapper.toDto(location);
+        locationSearchRepository.save(location);
+        return result;
+    }
 
     /**
      * Get all the locations.
      *
      * @return the list of entities
      */
-    List<Location> findAll();
+    public List<LocationDTO> findAll() {
+        log.debug("Request to get all Locations");
+        return locationRepository.findAll().stream()
+            .map(locationMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
 
 
     /**
-     * Get the "id" location.
+     * Get one location by id.
      *
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<Location> findOne(String id);
+    public Optional<LocationDTO> findOne(String id) {
+        log.debug("Request to get Location : {}", id);
+        return locationRepository.findById(id)
+            .map(locationMapper::toDto);
+    }
 
     /**
-     * Delete the "id" location.
+     * Delete the location by id.
      *
      * @param id the id of the entity
      */
-    void delete(String id);
+    public void delete(String id) {
+        log.debug("Request to delete Location : {}", id);        locationRepository.deleteById(id);
+        locationSearchRepository.deleteById(id);
+    }
 
     /**
      * Search for the location corresponding to the query.
      *
      * @param query the query of the search
-     * 
      * @return the list of entities
      */
-    List<Location> search(String query);
+    public List<LocationDTO> search(String query) {
+        log.debug("Request to search Locations for query {}", query);
+        return StreamSupport
+            .stream(locationSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+            .map(locationMapper::toDto)
+            .collect(Collectors.toList());
+    }
 }

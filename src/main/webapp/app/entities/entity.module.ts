@@ -35,6 +35,38 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'bill',
                 loadChildren: './bill/bill.module#KahoulaPrestationBillModule'
+            },
+            {
+                path: 'region',
+                loadChildren: './region/region.module#KahoulaPrestationRegionModule'
+            },
+            {
+                path: 'city',
+                loadChildren: './city/city.module#KahoulaPrestationCityModule'
+            },
+            {
+                path: 'location',
+                loadChildren: './location/location.module#KahoulaPrestationLocationModule'
+            },
+            {
+                path: 'users',
+                loadChildren: './users/users.module#KahoulaPrestationUsersModule'
+            },
+            {
+                path: 'customer',
+                loadChildren: './customer/customer.module#KahoulaPrestationCustomerModule'
+            },
+            {
+                path: 'partner',
+                loadChildren: './partner/partner.module#KahoulaPrestationPartnerModule'
+            },
+            {
+                path: 'job-bid',
+                loadChildren: './job-bid/job-bid.module#KahoulaPrestationJobBidModule'
+            },
+            {
+                path: 'bill',
+                loadChildren: './bill/bill.module#KahoulaPrestationBillModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])

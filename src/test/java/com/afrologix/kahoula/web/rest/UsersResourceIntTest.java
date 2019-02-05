@@ -6,6 +6,8 @@ import com.afrologix.kahoula.domain.Users;
 import com.afrologix.kahoula.repository.UsersRepository;
 import com.afrologix.kahoula.repository.search.UsersSearchRepository;
 import com.afrologix.kahoula.service.UsersService;
+import com.afrologix.kahoula.service.dto.UsersDTO;
+import com.afrologix.kahoula.service.mapper.UsersMapper;
 import com.afrologix.kahoula.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -71,6 +73,9 @@ public class UsersResourceIntTest {
 
     @Autowired
     private UsersRepository usersRepository;
+
+    @Autowired
+    private UsersMapper usersMapper;
 
     @Autowired
     private UsersService usersService;
@@ -141,9 +146,10 @@ public class UsersResourceIntTest {
         int databaseSizeBeforeCreate = usersRepository.findAll().size();
 
         // Create the Users
+        UsersDTO usersDTO = usersMapper.toDto(users);
         restUsersMockMvc.perform(post("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(users)))
+            .content(TestUtil.convertObjectToJsonBytes(usersDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Users in the database
@@ -169,11 +175,12 @@ public class UsersResourceIntTest {
 
         // Create the Users with an existing ID
         users.setId("existing_id");
+        UsersDTO usersDTO = usersMapper.toDto(users);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restUsersMockMvc.perform(post("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(users)))
+            .content(TestUtil.convertObjectToJsonBytes(usersDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Users in the database
@@ -191,10 +198,11 @@ public class UsersResourceIntTest {
         users.setPhoneNumber(null);
 
         // Create the Users, which fails.
+        UsersDTO usersDTO = usersMapper.toDto(users);
 
         restUsersMockMvc.perform(post("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(users)))
+            .content(TestUtil.convertObjectToJsonBytes(usersDTO)))
             .andExpect(status().isBadRequest());
 
         List<Users> usersList = usersRepository.findAll();
@@ -208,10 +216,11 @@ public class UsersResourceIntTest {
         users.setLocation(null);
 
         // Create the Users, which fails.
+        UsersDTO usersDTO = usersMapper.toDto(users);
 
         restUsersMockMvc.perform(post("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(users)))
+            .content(TestUtil.convertObjectToJsonBytes(usersDTO)))
             .andExpect(status().isBadRequest());
 
         List<Users> usersList = usersRepository.findAll();
@@ -225,10 +234,11 @@ public class UsersResourceIntTest {
         users.setType(null);
 
         // Create the Users, which fails.
+        UsersDTO usersDTO = usersMapper.toDto(users);
 
         restUsersMockMvc.perform(post("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(users)))
+            .content(TestUtil.convertObjectToJsonBytes(usersDTO)))
             .andExpect(status().isBadRequest());
 
         List<Users> usersList = usersRepository.findAll();
@@ -285,9 +295,7 @@ public class UsersResourceIntTest {
     @Test
     public void updateUsers() throws Exception {
         // Initialize the database
-        usersService.save(users);
-        // As the test used the service layer, reset the Elasticsearch mock repository
-        reset(mockUsersSearchRepository);
+        usersRepository.save(users);
 
         int databaseSizeBeforeUpdate = usersRepository.findAll().size();
 
@@ -302,10 +310,11 @@ public class UsersResourceIntTest {
             .location(UPDATED_LOCATION)
             .language(UPDATED_LANGUAGE)
             .type(UPDATED_TYPE);
+        UsersDTO usersDTO = usersMapper.toDto(updatedUsers);
 
         restUsersMockMvc.perform(put("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedUsers)))
+            .content(TestUtil.convertObjectToJsonBytes(usersDTO)))
             .andExpect(status().isOk());
 
         // Validate the Users in the database
@@ -330,11 +339,12 @@ public class UsersResourceIntTest {
         int databaseSizeBeforeUpdate = usersRepository.findAll().size();
 
         // Create the Users
+        UsersDTO usersDTO = usersMapper.toDto(users);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restUsersMockMvc.perform(put("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(users)))
+            .content(TestUtil.convertObjectToJsonBytes(usersDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Users in the database
@@ -348,7 +358,7 @@ public class UsersResourceIntTest {
     @Test
     public void deleteUsers() throws Exception {
         // Initialize the database
-        usersService.save(users);
+        usersRepository.save(users);
 
         int databaseSizeBeforeDelete = usersRepository.findAll().size();
 
@@ -368,7 +378,7 @@ public class UsersResourceIntTest {
     @Test
     public void searchUsers() throws Exception {
         // Initialize the database
-        usersService.save(users);
+        usersRepository.save(users);
         when(mockUsersSearchRepository.search(queryStringQuery("id:" + users.getId())))
             .thenReturn(Collections.singletonList(users));
         // Search the users
@@ -398,5 +408,20 @@ public class UsersResourceIntTest {
         assertThat(users1).isNotEqualTo(users2);
         users1.setId(null);
         assertThat(users1).isNotEqualTo(users2);
+    }
+
+    @Test
+    public void dtoEqualsVerifier() throws Exception {
+        TestUtil.equalsVerifier(UsersDTO.class);
+        UsersDTO usersDTO1 = new UsersDTO();
+        usersDTO1.setId("id1");
+        UsersDTO usersDTO2 = new UsersDTO();
+        assertThat(usersDTO1).isNotEqualTo(usersDTO2);
+        usersDTO2.setId(usersDTO1.getId());
+        assertThat(usersDTO1).isEqualTo(usersDTO2);
+        usersDTO2.setId("id2");
+        assertThat(usersDTO1).isNotEqualTo(usersDTO2);
+        usersDTO1.setId(null);
+        assertThat(usersDTO1).isNotEqualTo(usersDTO2);
     }
 }
