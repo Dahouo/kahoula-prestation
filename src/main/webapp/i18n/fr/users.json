@@ -1,0 +1,29 @@
+{
+    "kahoulaPrestationApp": {
+        "users": {
+            "home": {
+                "title": "Users",
+                "createLabel": "Créer un nouveau Users",
+                "createOrEditLabel": "Créer ou éditer un Users",
+                "search": "Recherche pour Users"
+            },
+            "created": "Un nouveau Users a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Users avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Users avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Users {{ id }} ?"
+            },
+            "detail": {
+                "title": "Users"
+            },
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "password": "Password",
+            "email": "Email",
+            "phoneNumber": "Phone Number",
+            "location": "Location",
+            "language": "Language",
+            "type": "Type"
+        }
+    }
+}
