@@ -1,0 +1,78 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-bill-heading" jhiTranslate="kahoulaPrestationApp.bill.home.createOrEditLabel">Create or edit a Bill</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!bill.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="bill.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="kahoulaPrestationApp.bill.designation" for="field_designation">Designation</label>
+                    <input type="text" class="form-control" name="designation" id="field_designation"
+                        [(ngModel)]="bill.designation" required/>
+                    <div [hidden]="!(editForm.controls.designation?.dirty && editForm.controls.designation?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.designation?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="kahoulaPrestationApp.bill.quantity" for="field_quantity">Quantity</label>
+                    <input type="number" class="form-control" name="quantity" id="field_quantity"
+                        [(ngModel)]="bill.quantity" required/>
+                    <div [hidden]="!(editForm.controls.quantity?.dirty && editForm.controls.quantity?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.quantity?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.quantity?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="kahoulaPrestationApp.bill.unitPrice" for="field_unitPrice">Unit Price</label>
+                    <input type="number" class="form-control" name="unitPrice" id="field_unitPrice"
+                        [(ngModel)]="bill.unitPrice" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="kahoulaPrestationApp.bill.jobid" for="field_jobid">Jobid</label>
+                    <input type="text" class="form-control" name="jobid" id="field_jobid"
+                        [(ngModel)]="bill.jobid" required/>
+                    <div [hidden]="!(editForm.controls.jobid?.dirty && editForm.controls.jobid?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.jobid?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="kahoulaPrestationApp.bill.status" for="field_status">Status</label>
+                    <select class="form-control" name="status" [(ngModel)]="bill.status" id="field_status" >
+                        <option value="NEW">{{'kahoulaPrestationApp.BillStatus.NEW' | translate}}</option>
+                        <option value="VALIDATION">{{'kahoulaPrestationApp.BillStatus.VALIDATION' | translate}}</option>
+                        <option value="VALIDATED">{{'kahoulaPrestationApp.BillStatus.VALIDATED' | translate}}</option>
+                        <option value="SENT">{{'kahoulaPrestationApp.BillStatus.SENT' | translate}}</option>
+                        <option value="CONFIRMED">{{'kahoulaPrestationApp.BillStatus.CONFIRMED' | translate}}</option>
+                        <option value="CANCELLED">{{'kahoulaPrestationApp.BillStatus.CANCELLED' | translate}}</option>
+                        <option value="PAID">{{'kahoulaPrestationApp.BillStatus.PAID' | translate}}</option>
+                    </select>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

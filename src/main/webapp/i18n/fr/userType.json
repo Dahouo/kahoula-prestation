@@ -1,0 +1,9 @@
+{
+    "kahoulaPrestationApp": {
+        "UserType": {
+            "null": "",
+            "CUSTOMER": "CUSTOMER",
+            "PARTNER": "PARTNER"
+        }
+    }
+}

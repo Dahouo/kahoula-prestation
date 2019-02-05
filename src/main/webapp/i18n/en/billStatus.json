@@ -1,0 +1,14 @@
+{
+    "kahoulaPrestationApp": {
+        "BillStatus": {
+            "null": "",
+            "NEW": "NEW",
+            "VALIDATION": "VALIDATION",
+            "VALIDATED": "VALIDATED",
+            "SENT": "SENT",
+            "CONFIRMED": "CONFIRMED",
+            "CANCELLED": "CANCELLED",
+            "PAID": "PAID"
+        }
+    }
+}

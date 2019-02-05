@@ -1,0 +1,39 @@
+{
+    "name": "Partner",
+    "fields": [
+        {
+            "fieldName": "userId",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "cniImage",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "userImage",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "references",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "qualification",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20190205000712",
+    "javadoc": "The Partner entity\n@author arnaud.",
+    "entityTableName": "partner",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -1,0 +1,12 @@
+{
+    "kahoulaPrestationApp": {
+        "JobStatus": {
+            "null": "",
+            "NEW": "NEW",
+            "INIT": "INIT",
+            "ONGOING": "ONGOING",
+            "CANCELLED": "CANCELLED",
+            "CLOSED": "CLOSED"
+        }
+    }
+}

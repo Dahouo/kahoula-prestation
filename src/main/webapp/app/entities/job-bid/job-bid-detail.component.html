@@ -1,0 +1,55 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="jobBid">
+            <h2><span jhiTranslate="kahoulaPrestationApp.jobBid.detail.title">Job Bid</span> {{jobBid.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="kahoulaPrestationApp.jobBid.description">Description</span></dt>
+                <dd>
+                    <span>{{jobBid.description}}</span>
+                </dd>
+                <dt><span jhiTranslate="kahoulaPrestationApp.jobBid.type">Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'kahoulaPrestationApp.JobType.' + jobBid.type}}">{{jobBid.type}}</span>
+                </dd>
+                <dt><span jhiTranslate="kahoulaPrestationApp.jobBid.wishDate">Wish Date</span></dt>
+                <dd>
+                    <span>{{jobBid.wishDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="kahoulaPrestationApp.jobBid.customerId">Customer Id</span></dt>
+                <dd>
+                    <span>{{jobBid.customerId}}</span>
+                </dd>
+                <dt><span jhiTranslate="kahoulaPrestationApp.jobBid.location">Location</span></dt>
+                <dd>
+                    <span>{{jobBid.location}}</span>
+                </dd>
+                <dt><span jhiTranslate="kahoulaPrestationApp.jobBid.partnerId">Partner Id</span></dt>
+                <dd>
+                    <span>{{jobBid.partnerId}}</span>
+                </dd>
+                <dt><span jhiTranslate="kahoulaPrestationApp.jobBid.amount">Amount</span></dt>
+                <dd>
+                    <span>{{jobBid.amount}}</span>
+                </dd>
+                <dt><span jhiTranslate="kahoulaPrestationApp.jobBid.status">Status</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'kahoulaPrestationApp.JobStatus.' + jobBid.status}}">{{jobBid.status}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/job-bid', jobBid.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
