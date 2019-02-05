@@ -1,0 +1,29 @@
+{
+    "kahoulaPrestationApp": {
+        "jobBid": {
+            "home": {
+                "title": "JobBids",
+                "createLabel": "Créer un nouveau Job Bid",
+                "createOrEditLabel": "Créer ou éditer un Job Bid",
+                "search": "Recherche pour Job Bid"
+            },
+            "created": "Un nouveau Job Bid a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Job Bid avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Job Bid avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Job Bid {{ id }} ?"
+            },
+            "detail": {
+                "title": "Job Bid"
+            },
+            "description": "Description",
+            "type": "Type",
+            "wishDate": "Wish Date",
+            "customerId": "Customer Id",
+            "location": "Location",
+            "partnerId": "Partner Id",
+            "amount": "Amount",
+            "status": "Status"
+        }
+    }
+}
