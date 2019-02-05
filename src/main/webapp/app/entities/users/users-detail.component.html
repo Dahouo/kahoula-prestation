@@ -1,0 +1,55 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="users">
+            <h2><span jhiTranslate="kahoulaPrestationApp.users.detail.title">Users</span> {{users.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="kahoulaPrestationApp.users.firstName">First Name</span></dt>
+                <dd>
+                    <span>{{users.firstName}}</span>
+                </dd>
+                <dt><span jhiTranslate="kahoulaPrestationApp.users.lastName">Last Name</span></dt>
+                <dd>
+                    <span>{{users.lastName}}</span>
+                </dd>
+                <dt><span jhiTranslate="kahoulaPrestationApp.users.password">Password</span></dt>
+                <dd>
+                    <span>{{users.password}}</span>
+                </dd>
+                <dt><span jhiTranslate="kahoulaPrestationApp.users.email">Email</span></dt>
+                <dd>
+                    <span>{{users.email}}</span>
+                </dd>
+                <dt><span jhiTranslate="kahoulaPrestationApp.users.phoneNumber">Phone Number</span></dt>
+                <dd>
+                    <span>{{users.phoneNumber}}</span>
+                </dd>
+                <dt><span jhiTranslate="kahoulaPrestationApp.users.location">Location</span></dt>
+                <dd>
+                    <span>{{users.location}}</span>
+                </dd>
+                <dt><span jhiTranslate="kahoulaPrestationApp.users.language">Language</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'kahoulaPrestationApp.Language.' + users.language}}">{{users.language}}</span>
+                </dd>
+                <dt><span jhiTranslate="kahoulaPrestationApp.users.type">Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'kahoulaPrestationApp.UserType.' + users.type}}">{{users.type}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/users', users.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
