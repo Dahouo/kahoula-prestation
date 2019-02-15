@@ -1,8 +1,8 @@
-package com.afrologix.kahoula.domain.Bill;
+package com.afrologix.kahoula.resources.Bill;
 
 
-import com.afrologix.kahoula.domain.AbstractAuditingEntity;
-import com.afrologix.kahoula.domain.JobBid;
+import com.afrologix.kahoula.resources.AbstractAuditingEntity;
+import com.afrologix.kahoula.resources.JobBid.JobBid;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,7 +12,7 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-import com.afrologix.kahoula.domain.enumeration.BillStatus;
+import com.afrologix.kahoula.resources.enumeration.BillStatus;
 
 /**
  * Bill entity.

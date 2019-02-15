@@ -1,10 +1,5 @@
-package com.afrologix.kahoula.service;
+package com.afrologix.kahoula.resources.Partner;
 
-import com.afrologix.kahoula.resources.Partner.Partner;
-import com.afrologix.kahoula.resources.Partner.PartnerRepository;
-import com.afrologix.kahoula.resources.Partner.PartnerSearchRepository;
-import com.afrologix.kahoula.service.dto.PartnerDTO;
-import com.afrologix.kahoula.service.mapper.PartnerMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

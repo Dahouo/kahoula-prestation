@@ -1,15 +1,10 @@
 package com.afrologix.kahoula.web.rest;
 
 import com.afrologix.kahoula.KahoulaPrestationApp;
-import com.afrologix.kahoula.domain.Authority;
-import com.afrologix.kahoula.domain.User;
-import com.afrologix.kahoula.repository.UserRepository;
-import com.afrologix.kahoula.repository.search.UserSearchRepository;
+import com.afrologix.kahoula.resources.Authority;
+import com.afrologix.kahoula.resources.User.*;
 import com.afrologix.kahoula.security.AuthoritiesConstants;
 import com.afrologix.kahoula.service.MailService;
-import com.afrologix.kahoula.service.UserService;
-import com.afrologix.kahoula.service.dto.UserDTO;
-import com.afrologix.kahoula.service.mapper.UserMapper;
 import com.afrologix.kahoula.web.rest.errors.ExceptionTranslator;
 import com.afrologix.kahoula.web.rest.vm.ManagedUserVM;
 import org.apache.commons.lang3.RandomStringUtils;

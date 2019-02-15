@@ -1,4 +1,4 @@
-package com.afrologix.kahoula.service.mapper;
+package com.afrologix.kahoula.resources;
 
 import java.util.List;
 

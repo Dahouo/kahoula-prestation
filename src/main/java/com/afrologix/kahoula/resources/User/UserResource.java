@@ -1,13 +1,8 @@
-package com.afrologix.kahoula.web.rest;
+package com.afrologix.kahoula.resources.User;
 
 import com.afrologix.kahoula.config.Constants;
-import com.afrologix.kahoula.resources.User.User;
-import com.afrologix.kahoula.resources.User.UserRepository;
-import com.afrologix.kahoula.resources.User.UserSearchRepository;
 import com.afrologix.kahoula.security.AuthoritiesConstants;
 import com.afrologix.kahoula.service.MailService;
-import com.afrologix.kahoula.resources.User.UserService;
-import com.afrologix.kahoula.resources.User.UserDTO;
 import com.afrologix.kahoula.web.rest.errors.BadRequestAlertException;
 import com.afrologix.kahoula.web.rest.errors.EmailAlreadyUsedException;
 import com.afrologix.kahoula.web.rest.errors.LoginAlreadyUsedException;

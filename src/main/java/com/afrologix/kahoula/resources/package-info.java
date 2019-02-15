@@ -1,4 +1,4 @@
 /**
- * JPA domain objects.
+ * JPA resources objects.
  */
-package com.afrologix.kahoula.domain;
+package com.afrologix.kahoula.resources;

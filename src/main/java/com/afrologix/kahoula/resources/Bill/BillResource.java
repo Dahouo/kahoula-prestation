@@ -1,4 +1,4 @@
-package com.afrologix.kahoula.domain.Bill;
+package com.afrologix.kahoula.resources.Bill;
 import com.afrologix.kahoula.web.rest.errors.BadRequestAlertException;
 import com.afrologix.kahoula.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;

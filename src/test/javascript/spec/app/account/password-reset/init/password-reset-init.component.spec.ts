@@ -60,11 +60,11 @@ describe('Component Tests', () => {
 
         it('notifies of success upon successful requestReset', inject([PasswordResetInitService], (service: PasswordResetInitService) => {
             spyOn(service, 'save').and.returnValue(of({}));
-            comp.resetAccount.email = 'user@domain.com';
+            comp.resetAccount.email = 'user@resources.com';
 
             comp.requestReset();
 
-            expect(service.save).toHaveBeenCalledWith('user@domain.com');
+            expect(service.save).toHaveBeenCalledWith('user@resources.com');
             expect(comp.success).toEqual('OK');
             expect(comp.error).toBeNull();
             expect(comp.errorEmailNotExists).toBeNull();
@@ -79,11 +79,11 @@ describe('Component Tests', () => {
                         error: { type: EMAIL_NOT_FOUND_TYPE }
                     })
                 );
-                comp.resetAccount.email = 'user@domain.com';
+                comp.resetAccount.email = 'user@resources.com';
 
                 comp.requestReset();
 
-                expect(service.save).toHaveBeenCalledWith('user@domain.com');
+                expect(service.save).toHaveBeenCalledWith('user@resources.com');
                 expect(comp.success).toBeNull();
                 expect(comp.error).toBeNull();
                 expect(comp.errorEmailNotExists).toEqual('ERROR');
@@ -97,11 +97,11 @@ describe('Component Tests', () => {
                     data: 'something else'
                 })
             );
-            comp.resetAccount.email = 'user@domain.com';
+            comp.resetAccount.email = 'user@resources.com';
 
             comp.requestReset();
 
-            expect(service.save).toHaveBeenCalledWith('user@domain.com');
+            expect(service.save).toHaveBeenCalledWith('user@resources.com');
             expect(comp.success).toBeNull();
             expect(comp.errorEmailNotExists).toBeNull();
             expect(comp.error).toEqual('ERROR');

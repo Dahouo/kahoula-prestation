@@ -1,6 +1,6 @@
 package com.afrologix.kahoula.config.audit;
 
-import com.afrologix.kahoula.domain.PersistentAuditEvent;
+import com.afrologix.kahoula.resources.PersistentAuditEvent;
 
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;

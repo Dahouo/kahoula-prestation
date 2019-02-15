@@ -1,6 +1,8 @@
-package com.afrologix.kahoula.resources;
+package com.afrologix.kahoula.resources.Customer;
 
 
+import com.afrologix.kahoula.resources.AbstractAuditingEntity;
+import com.afrologix.kahoula.resources.User.User;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;

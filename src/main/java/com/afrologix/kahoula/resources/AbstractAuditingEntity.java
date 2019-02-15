@@ -1,4 +1,4 @@
-package com.afrologix.kahoula.domain;
+package com.afrologix.kahoula.resources;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.CreatedBy;

@@ -1,10 +1,5 @@
-package com.afrologix.kahoula.service;
+package com.afrologix.kahoula.resources.JobBid;
 
-import com.afrologix.kahoula.resources.JobBid.JobBid;
-import com.afrologix.kahoula.resources.JobBid.JobBidRepository;
-import com.afrologix.kahoula.resources.JobBid.JobBidSearchRepository;
-import com.afrologix.kahoula.service.dto.JobBidDTO;
-import com.afrologix.kahoula.service.mapper.JobBidMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

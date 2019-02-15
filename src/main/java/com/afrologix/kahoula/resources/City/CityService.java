@@ -1,10 +1,5 @@
-package com.afrologix.kahoula.service;
+package com.afrologix.kahoula.resources.City;
 
-import com.afrologix.kahoula.resources.City.City;
-import com.afrologix.kahoula.resources.City.CityRepository;
-import com.afrologix.kahoula.resources.City.CitySearchRepository;
-import com.afrologix.kahoula.service.dto.CityDTO;
-import com.afrologix.kahoula.service.mapper.CityMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

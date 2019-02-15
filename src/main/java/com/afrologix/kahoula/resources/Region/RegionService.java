@@ -1,10 +1,5 @@
-package com.afrologix.kahoula.service;
+package com.afrologix.kahoula.resources.Region;
 
-import com.afrologix.kahoula.resources.Region.Region;
-import com.afrologix.kahoula.resources.Region.RegionRepository;
-import com.afrologix.kahoula.resources.Region.RegionSearchRepository;
-import com.afrologix.kahoula.service.dto.RegionDTO;
-import com.afrologix.kahoula.service.mapper.RegionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

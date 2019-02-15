@@ -1,6 +1,5 @@
-package com.afrologix.kahoula.domain.Bill;
+package com.afrologix.kahoula.resources.Bill;
 
-import com.afrologix.kahoula.domain.Bill.Bill;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

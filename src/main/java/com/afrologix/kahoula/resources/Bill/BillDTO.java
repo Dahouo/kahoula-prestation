@@ -1,9 +1,10 @@
-package com.afrologix.kahoula.domain.Bill;
+package com.afrologix.kahoula.resources.Bill;
+import com.afrologix.kahoula.resources.JobBid.JobBidDTO;
 import io.swagger.annotations.ApiModel;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
-import com.afrologix.kahoula.domain.enumeration.BillStatus;
+import com.afrologix.kahoula.resources.enumeration.BillStatus;
 
 /**
  * A DTO for the Bill entity.
@@ -22,7 +23,7 @@ public class BillDTO implements Serializable {
     private Double unitPrice;
 
     @NotNull
-    private String jobid;
+    private JobBidDTO jobid;
 
     private BillStatus status;
 
@@ -59,11 +60,11 @@ public class BillDTO implements Serializable {
         this.unitPrice = unitPrice;
     }
 
-    public String getJobid() {
+    public @NotNull JobBidDTO getJobid() {
         return jobid;
     }
 
-    public void setJobid(String jobid) {
+    public void setJobid(JobBidDTO jobid) {
         this.jobid = jobid;
     }
 

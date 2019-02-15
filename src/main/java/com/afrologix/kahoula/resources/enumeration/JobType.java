@@ -1,4 +1,4 @@
-package com.afrologix.kahoula.domain.enumeration;
+package com.afrologix.kahoula.resources.enumeration;
 
 /**
  * The JobType enumeration.

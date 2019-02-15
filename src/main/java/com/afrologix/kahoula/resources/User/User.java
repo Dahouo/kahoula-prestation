@@ -1,7 +1,10 @@
-package com.afrologix.kahoula.resources;
+package com.afrologix.kahoula.resources.User;
 
 import com.afrologix.kahoula.config.Constants;
 
+import com.afrologix.kahoula.resources.AbstractAuditingEntity;
+import com.afrologix.kahoula.resources.Authority;
+import com.afrologix.kahoula.resources.Location.Location;
 import com.afrologix.kahoula.resources.enumeration.Language;
 import com.afrologix.kahoula.resources.enumeration.UserType;
 import com.fasterxml.jackson.annotation.JsonIgnore;

@@ -1,13 +1,9 @@
-package com.afrologix.kahoula.web.rest;
+package com.afrologix.kahoula.resources.User;
 
 
-import com.afrologix.kahoula.resources.User.User;
-import com.afrologix.kahoula.resources.User.UserRepository;
 import com.afrologix.kahoula.security.SecurityUtils;
 import com.afrologix.kahoula.service.MailService;
-import com.afrologix.kahoula.resources.User.UserService;
 import com.afrologix.kahoula.resources.PasswordChangeDTO;
-import com.afrologix.kahoula.resources.User.UserDTO;
 import com.afrologix.kahoula.web.rest.errors.*;
 import com.afrologix.kahoula.web.rest.vm.KeyAndPasswordVM;
 import com.afrologix.kahoula.web.rest.vm.ManagedUserVM;

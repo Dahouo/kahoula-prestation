@@ -1,4 +1,4 @@
-package com.afrologix.kahoula.service.dto;
+package com.afrologix.kahoula.resources;
 
 /**
  * A DTO representing a password change required data - current and new password.

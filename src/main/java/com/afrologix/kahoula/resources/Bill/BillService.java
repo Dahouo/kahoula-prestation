@@ -1,4 +1,4 @@
-package com.afrologix.kahoula.domain.Bill;
+package com.afrologix.kahoula.resources.Bill;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -2,8 +2,9 @@ package com.afrologix.kahoula.service.mapper;
 
 
 import com.afrologix.kahoula.KahoulaPrestationApp;
-import com.afrologix.kahoula.domain.User;
-import com.afrologix.kahoula.service.dto.UserDTO;
+import com.afrologix.kahoula.resources.User.User;
+import com.afrologix.kahoula.resources.User.UserMapper;
+import com.afrologix.kahoula.resources.User.UserDTO;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;

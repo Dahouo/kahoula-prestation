@@ -1,8 +1,6 @@
-package com.afrologix.kahoula.service.mapper;
+package com.afrologix.kahoula.resources.City;
 
-import com.afrologix.kahoula.resources.City.City;
-import com.afrologix.kahoula.service.dto.CityDTO;
-
+import com.afrologix.kahoula.resources.EntityMapper;
 import org.mapstruct.*;
 
 /**

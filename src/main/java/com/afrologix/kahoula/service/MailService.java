@@ -1,6 +1,6 @@
 package com.afrologix.kahoula.service;
 
-import com.afrologix.kahoula.domain.User;
+import com.afrologix.kahoula.resources.User.User;
 
 import io.github.jhipster.config.JHipsterProperties;
 

@@ -1,7 +1,7 @@
 package com.afrologix.kahoula.config.dbmigrations;
 
-import com.afrologix.kahoula.domain.Authority;
-import com.afrologix.kahoula.domain.User;
+import com.afrologix.kahoula.resources.Authority;
+import com.afrologix.kahoula.resources.User.User;
 import com.afrologix.kahoula.security.AuthoritiesConstants;
 
 import com.github.mongobee.changeset.ChangeLog;

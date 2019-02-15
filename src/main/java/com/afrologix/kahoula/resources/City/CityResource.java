@@ -1,8 +1,6 @@
-package com.afrologix.kahoula.web.rest;
-import com.afrologix.kahoula.resources.City.CityService;
+package com.afrologix.kahoula.resources.City;
 import com.afrologix.kahoula.web.rest.errors.BadRequestAlertException;
 import com.afrologix.kahoula.web.rest.util.HeaderUtil;
-import com.afrologix.kahoula.resources.City.CityDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

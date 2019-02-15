@@ -1,4 +1,4 @@
-package com.afrologix.kahoula.resources;
+package com.afrologix.kahoula.resources.Region;
 
 
 import org.springframework.data.annotation.Id;

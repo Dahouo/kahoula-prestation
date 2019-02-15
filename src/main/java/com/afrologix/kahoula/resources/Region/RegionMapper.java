@@ -1,8 +1,6 @@
-package com.afrologix.kahoula.service.mapper;
+package com.afrologix.kahoula.resources.Region;
 
-import com.afrologix.kahoula.resources.Region.Region;
-import com.afrologix.kahoula.service.dto.RegionDTO;
-
+import com.afrologix.kahoula.resources.EntityMapper;
 import org.mapstruct.*;
 
 /**

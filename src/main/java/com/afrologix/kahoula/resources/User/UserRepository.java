@@ -1,6 +1,4 @@
-package com.afrologix.kahoula.repository;
-
-import com.afrologix.kahoula.resources.User;
+package com.afrologix.kahoula.resources.User;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

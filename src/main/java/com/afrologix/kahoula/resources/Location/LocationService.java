@@ -1,10 +1,5 @@
-package com.afrologix.kahoula.service;
+package com.afrologix.kahoula.resources.Location;
 
-import com.afrologix.kahoula.resources.Location.Location;
-import com.afrologix.kahoula.resources.Location.LocationRepository;
-import com.afrologix.kahoula.resources.Location.LocationSearchRepository;
-import com.afrologix.kahoula.service.dto.LocationDTO;
-import com.afrologix.kahoula.service.mapper.LocationMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

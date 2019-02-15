@@ -1,6 +1,6 @@
 package com.afrologix.kahoula.web.rest.vm;
 
-import com.afrologix.kahoula.service.dto.UserDTO;
+import com.afrologix.kahoula.resources.User.UserDTO;
 import javax.validation.constraints.Size;
 
 /**

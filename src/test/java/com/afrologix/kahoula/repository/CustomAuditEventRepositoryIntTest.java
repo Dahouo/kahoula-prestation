@@ -3,7 +3,7 @@ package com.afrologix.kahoula.repository;
 import com.afrologix.kahoula.KahoulaPrestationApp;
 import com.afrologix.kahoula.config.Constants;
 import com.afrologix.kahoula.config.audit.AuditEventConverter;
-import com.afrologix.kahoula.domain.PersistentAuditEvent;
+import com.afrologix.kahoula.resources.PersistentAuditEvent;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

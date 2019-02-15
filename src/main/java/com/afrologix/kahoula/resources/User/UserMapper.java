@@ -1,8 +1,6 @@
-package com.afrologix.kahoula.service.mapper;
+package com.afrologix.kahoula.resources.User;
 
 import com.afrologix.kahoula.resources.Authority;
-import com.afrologix.kahoula.resources.User.User;
-import com.afrologix.kahoula.service.dto.UserDTO;
 
 import org.springframework.stereotype.Service;
 

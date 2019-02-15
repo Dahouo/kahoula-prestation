@@ -2,7 +2,7 @@ package com.afrologix.kahoula.repository;
 
 import com.afrologix.kahoula.config.Constants;
 import com.afrologix.kahoula.config.audit.AuditEventConverter;
-import com.afrologix.kahoula.domain.PersistentAuditEvent;
+import com.afrologix.kahoula.resources.PersistentAuditEvent;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

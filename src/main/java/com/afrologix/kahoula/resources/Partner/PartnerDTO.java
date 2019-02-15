@@ -1,4 +1,6 @@
-package com.afrologix.kahoula.service.dto;
+package com.afrologix.kahoula.resources.Partner;
+import com.afrologix.kahoula.resources.User.User;
+import com.afrologix.kahoula.resources.User.UserDTO;
 import io.swagger.annotations.ApiModel;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -12,7 +14,7 @@ public class PartnerDTO implements Serializable {
 
     private String id;
 
-    private String userId;
+    private User user;
 
     @NotNull
     private String cniImage;
@@ -32,12 +34,12 @@ public class PartnerDTO implements Serializable {
         this.id = id;
     }
 
-    public String getUserId() {
-        return userId;
+    public User getuser() {
+        return user;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setuser(User user) {
+        this.user = user;
     }
 
     public String getCniImage() {
@@ -97,7 +99,7 @@ public class PartnerDTO implements Serializable {
     public String toString() {
         return "PartnerDTO{" +
             "id=" + getId() +
-            ", userId='" + getUserId() + "'" +
+            ", user='" + getuser() + "'" +
             ", cniImage='" + getCniImage() + "'" +
             ", userImage='" + getUserImage() + "'" +
             ", references='" + getReferences() + "'" +

@@ -1,15 +1,11 @@
-package com.afrologix.kahoula.service;
+package com.afrologix.kahoula.resources.User;
 
 import com.afrologix.kahoula.config.Constants;
 import com.afrologix.kahoula.resources.Authority;
-import com.afrologix.kahoula.resources.User.User;
 import com.afrologix.kahoula.repository.AuthorityRepository;
-import com.afrologix.kahoula.resources.User.UserRepository;
-import com.afrologix.kahoula.resources.User.UserSearchRepository;
 import com.afrologix.kahoula.security.AuthoritiesConstants;
 import com.afrologix.kahoula.security.SecurityUtils;
-import com.afrologix.kahoula.service.dto.UserDTO;
-import com.afrologix.kahoula.service.util.RandomUtil;
+import com.afrologix.kahoula.resources.util.RandomUtil;
 import com.afrologix.kahoula.web.rest.errors.*;
 
 import org.slf4j.Logger;

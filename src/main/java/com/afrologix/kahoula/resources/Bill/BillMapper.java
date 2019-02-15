@@ -1,9 +1,6 @@
-package com.afrologix.kahoula.domain.Bill;
+package com.afrologix.kahoula.resources.Bill;
 
-import com.afrologix.kahoula.domain.Bill.Bill;
-import com.afrologix.kahoula.domain.Bill.BillDTO;
-
-import com.afrologix.kahoula.service.mapper.EntityMapper;
+import com.afrologix.kahoula.resources.EntityMapper;
 import org.mapstruct.*;
 
 /**

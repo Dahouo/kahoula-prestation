@@ -1,6 +1,6 @@
-package com.afrologix.kahoula.repository.search;
+package com.afrologix.kahoula.resources.Location;
 
-import com.afrologix.kahoula.resources.Location;
+import com.afrologix.kahoula.resources.Location.Location;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 /**

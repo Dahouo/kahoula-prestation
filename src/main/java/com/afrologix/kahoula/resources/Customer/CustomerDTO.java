@@ -1,4 +1,6 @@
-package com.afrologix.kahoula.service.dto;
+package com.afrologix.kahoula.resources.Customer;
+import com.afrologix.kahoula.resources.User.User;
+import com.afrologix.kahoula.resources.User.UserDTO;
 import io.swagger.annotations.ApiModel;
 import java.io.Serializable;
 import java.util.Objects;
@@ -11,7 +13,7 @@ public class CustomerDTO implements Serializable {
 
     private String id;
 
-    private String userId;
+    private User user;
 
 
     public String getId() {
@@ -22,12 +24,12 @@ public class CustomerDTO implements Serializable {
         this.id = id;
     }
 
-    public String getUserId() {
-        return userId;
+    public User getuser() {
+        return user;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setuser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -55,7 +57,7 @@ public class CustomerDTO implements Serializable {
     public String toString() {
         return "CustomerDTO{" +
             "id=" + getId() +
-            ", userId='" + getUserId() + "'" +
+            ", user='" + getuser() + "'" +
             "}";
     }
 }

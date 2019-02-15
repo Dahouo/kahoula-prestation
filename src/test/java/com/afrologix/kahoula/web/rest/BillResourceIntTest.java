@@ -2,12 +2,9 @@ package com.afrologix.kahoula.web.rest;
 
 import com.afrologix.kahoula.KahoulaPrestationApp;
 
-import com.afrologix.kahoula.domain.Bill;
-import com.afrologix.kahoula.repository.BillRepository;
-import com.afrologix.kahoula.repository.search.BillSearchRepository;
-import com.afrologix.kahoula.service.BillService;
-import com.afrologix.kahoula.service.dto.BillDTO;
-import com.afrologix.kahoula.service.mapper.BillMapper;
+import com.afrologix.kahoula.resources.Bill.*;
+import com.afrologix.kahoula.resources.Bill.BillService;
+import com.afrologix.kahoula.resources.JobBid.JobBid;
 import com.afrologix.kahoula.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -36,7 +33,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.afrologix.kahoula.domain.enumeration.BillStatus;
+import com.afrologix.kahoula.resources.enumeration.BillStatus;
 /**
  * Test class for the BillResource REST controller.
  *
@@ -117,7 +114,7 @@ public class BillResourceIntTest {
             .designation(DEFAULT_DESIGNATION)
             .quantity(DEFAULT_QUANTITY)
             .unitPrice(DEFAULT_UNIT_PRICE)
-            .jobid(DEFAULT_JOBID)
+            .jobid(new JobBid())
             .status(DEFAULT_STATUS);
         return bill;
     }
@@ -283,7 +280,7 @@ public class BillResourceIntTest {
             .designation(UPDATED_DESIGNATION)
             .quantity(UPDATED_QUANTITY)
             .unitPrice(UPDATED_UNIT_PRICE)
-            .jobid(UPDATED_JOBID)
+            .jobid(new JobBid())
             .status(UPDATED_STATUS);
         BillDTO billDTO = billMapper.toDto(updatedBill);
 

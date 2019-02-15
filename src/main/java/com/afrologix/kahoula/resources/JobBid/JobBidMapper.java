@@ -1,8 +1,6 @@
-package com.afrologix.kahoula.service.mapper;
+package com.afrologix.kahoula.resources.JobBid;
 
-import com.afrologix.kahoula.resources.JobBid.JobBid;
-import com.afrologix.kahoula.service.dto.JobBidDTO;
-
+import com.afrologix.kahoula.resources.EntityMapper;
 import org.mapstruct.*;
 
 /**

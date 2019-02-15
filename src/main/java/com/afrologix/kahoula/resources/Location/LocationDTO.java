@@ -1,4 +1,8 @@
-package com.afrologix.kahoula.service.dto;
+package com.afrologix.kahoula.resources.Location;
+import com.afrologix.kahoula.resources.City.CityDTO;
+import com.afrologix.kahoula.resources.Region.Region;
+import com.afrologix.kahoula.resources.Region.RegionDTO;
+
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -11,10 +15,10 @@ public class LocationDTO implements Serializable {
     private String id;
 
     @NotNull
-    private String regionName;
+    private RegionDTO region;
 
     @NotNull
-    private String cityName;
+    private CityDTO city;
 
 
     public String getId() {
@@ -25,20 +29,20 @@ public class LocationDTO implements Serializable {
         this.id = id;
     }
 
-    public String getRegionName() {
-        return regionName;
+    public @NotNull RegionDTO getregion() {
+        return region;
     }
 
-    public void setRegionName(String regionName) {
-        this.regionName = regionName;
+    public void setregion(RegionDTO region) {
+        this.region = region;
     }
 
-    public String getCityName() {
-        return cityName;
+    public @NotNull CityDTO getcity() {
+        return city;
     }
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
+    public void setcity(CityDTO city) {
+        this.city = city;
     }
 
     @Override
@@ -66,8 +70,8 @@ public class LocationDTO implements Serializable {
     public String toString() {
         return "LocationDTO{" +
             "id=" + getId() +
-            ", regionName='" + getRegionName() + "'" +
-            ", cityName='" + getCityName() + "'" +
+            ", region='" + getregion() + "'" +
+            ", city='" + getcity() + "'" +
             "}";
     }
 }

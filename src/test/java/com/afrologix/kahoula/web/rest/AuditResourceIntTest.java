@@ -2,7 +2,7 @@ package com.afrologix.kahoula.web.rest;
 
 import com.afrologix.kahoula.KahoulaPrestationApp;
 import com.afrologix.kahoula.config.audit.AuditEventConverter;
-import com.afrologix.kahoula.domain.PersistentAuditEvent;
+import com.afrologix.kahoula.resources.PersistentAuditEvent;
 import com.afrologix.kahoula.repository.PersistenceAuditEventRepository;
 import com.afrologix.kahoula.service.AuditEventService;
 import org.junit.Before;

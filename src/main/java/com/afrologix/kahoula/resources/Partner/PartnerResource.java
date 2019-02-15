@@ -1,8 +1,6 @@
-package com.afrologix.kahoula.web.rest;
-import com.afrologix.kahoula.resources.Partner.PartnerService;
+package com.afrologix.kahoula.resources.Partner;
 import com.afrologix.kahoula.web.rest.errors.BadRequestAlertException;
 import com.afrologix.kahoula.web.rest.util.HeaderUtil;
-import com.afrologix.kahoula.resources.Partner.PartnerDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

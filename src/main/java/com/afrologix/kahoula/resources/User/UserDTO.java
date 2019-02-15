@@ -1,9 +1,8 @@
-package com.afrologix.kahoula.service.dto;
+package com.afrologix.kahoula.resources.User;
 
 import com.afrologix.kahoula.config.Constants;
 
 import com.afrologix.kahoula.resources.Authority;
-import com.afrologix.kahoula.resources.User.User;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

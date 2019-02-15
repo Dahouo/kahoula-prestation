@@ -1,7 +1,7 @@
 package com.afrologix.kahoula.security;
 
-import com.afrologix.kahoula.domain.User;
-import com.afrologix.kahoula.repository.UserRepository;
+import com.afrologix.kahoula.resources.User.User;
+import com.afrologix.kahoula.resources.User.UserRepository;
 import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

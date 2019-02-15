@@ -1,9 +1,7 @@
-package com.afrologix.kahoula.web.rest;
-import com.afrologix.kahoula.resources.JobBid.JobBidService;
+package com.afrologix.kahoula.resources.JobBid;
 import com.afrologix.kahoula.web.rest.errors.BadRequestAlertException;
 import com.afrologix.kahoula.web.rest.util.HeaderUtil;
 import com.afrologix.kahoula.web.rest.util.PaginationUtil;
-import com.afrologix.kahoula.resources.JobBid.JobBidDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

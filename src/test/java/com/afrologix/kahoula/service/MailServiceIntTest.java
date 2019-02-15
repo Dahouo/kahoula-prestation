@@ -2,7 +2,7 @@ package com.afrologix.kahoula.service;
 import com.afrologix.kahoula.config.Constants;
 
 import com.afrologix.kahoula.KahoulaPrestationApp;
-import com.afrologix.kahoula.domain.User;
+import com.afrologix.kahoula.resources.User.User;
 import io.github.jhipster.config.JHipsterProperties;
 import org.junit.Before;
 import org.junit.Test;

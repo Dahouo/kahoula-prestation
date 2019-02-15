@@ -1,8 +1,12 @@
-package com.afrologix.kahoula.service.dto;
+package com.afrologix.kahoula.resources.JobBid;
+import com.afrologix.kahoula.resources.Customer.CustomerDTO;
+import com.afrologix.kahoula.resources.Location.LocationDTO;
+import com.afrologix.kahoula.resources.Partner.PartnerDTO;
 import io.swagger.annotations.ApiModel;
 import java.time.Instant;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import com.afrologix.kahoula.resources.enumeration.JobType;
 import com.afrologix.kahoula.resources.enumeration.JobStatus;
@@ -19,18 +23,18 @@ public class JobBidDTO implements Serializable {
     private String description;
 
     @NotNull
-    private JobType type;
+    private List<JobType> type;
 
     private Instant wishDate;
 
     @NotNull
-    private String customerId;
+    private CustomerDTO customer;
 
     @NotNull
-    private String location;
+    private LocationDTO location;
 
     @NotNull
-    private String partnerId;
+    private PartnerDTO partner;
 
     @NotNull
     private Double amount;
@@ -54,11 +58,11 @@ public class JobBidDTO implements Serializable {
         this.description = description;
     }
 
-    public JobType getType() {
+    public @NotNull List<JobType> getType() {
         return type;
     }
 
-    public void setType(JobType type) {
+    public void setType(List<JobType> type) {
         this.type = type;
     }
 
@@ -70,28 +74,28 @@ public class JobBidDTO implements Serializable {
         this.wishDate = wishDate;
     }
 
-    public String getCustomerId() {
-        return customerId;
+    public @NotNull CustomerDTO getcustomer() {
+        return customer;
     }
 
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
+    public void setcustomer(CustomerDTO customer) {
+        this.customer = customer;
     }
 
-    public String getLocation() {
+    public @NotNull LocationDTO getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(LocationDTO location) {
         this.location = location;
     }
 
-    public String getPartnerId() {
-        return partnerId;
+    public @NotNull PartnerDTO getpartner() {
+        return partner;
     }
 
-    public void setPartnerId(String partnerId) {
-        this.partnerId = partnerId;
+    public void setpartner(PartnerDTO partner) {
+        this.partner = partner;
     }
 
     public Double getAmount() {
@@ -138,9 +142,9 @@ public class JobBidDTO implements Serializable {
             ", description='" + getDescription() + "'" +
             ", type='" + getType() + "'" +
             ", wishDate='" + getWishDate() + "'" +
-            ", customerId='" + getCustomerId() + "'" +
+            ", customer='" + getcustomer() + "'" +
             ", location='" + getLocation() + "'" +
-            ", partnerId='" + getPartnerId() + "'" +
+            ", partner='" + getpartner() + "'" +
             ", amount=" + getAmount() +
             ", status='" + getStatus() + "'" +
             "}";

@@ -1,6 +1,8 @@
-package com.afrologix.kahoula.resources;
+package com.afrologix.kahoula.resources.Location;
 
 
+import com.afrologix.kahoula.resources.City.City;
+import com.afrologix.kahoula.resources.Region.Region;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;

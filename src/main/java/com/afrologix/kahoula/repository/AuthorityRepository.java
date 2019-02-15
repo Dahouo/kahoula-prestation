@@ -1,6 +1,6 @@
 package com.afrologix.kahoula.repository;
 
-import com.afrologix.kahoula.domain.Authority;
+import com.afrologix.kahoula.resources.Authority;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 

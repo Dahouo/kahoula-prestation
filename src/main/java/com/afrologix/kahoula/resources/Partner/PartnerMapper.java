@@ -1,8 +1,6 @@
-package com.afrologix.kahoula.service.mapper;
+package com.afrologix.kahoula.resources.Partner;
 
-import com.afrologix.kahoula.resources.Partner.Partner;
-import com.afrologix.kahoula.service.dto.PartnerDTO;
-
+import com.afrologix.kahoula.resources.EntityMapper;
 import org.mapstruct.*;
 
 /**

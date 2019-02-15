@@ -1,4 +1,4 @@
-package com.afrologix.kahoula.service.util;
+package com.afrologix.kahoula.resources.util;
 
 import org.apache.commons.lang3.RandomStringUtils;
 

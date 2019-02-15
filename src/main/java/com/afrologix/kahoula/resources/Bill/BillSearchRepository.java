@@ -1,6 +1,5 @@
-package com.afrologix.kahoula.domain.Bill;
+package com.afrologix.kahoula.resources.Bill;
 
-import com.afrologix.kahoula.domain.Bill.Bill;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 /**

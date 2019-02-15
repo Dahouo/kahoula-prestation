@@ -1,10 +1,5 @@
-package com.afrologix.kahoula.service;
+package com.afrologix.kahoula.resources.Customer;
 
-import com.afrologix.kahoula.resources.Customer.Customer;
-import com.afrologix.kahoula.resources.Customer.CustomerRepository;
-import com.afrologix.kahoula.resources.Customer.CustomerSearchRepository;
-import com.afrologix.kahoula.service.dto.CustomerDTO;
-import com.afrologix.kahoula.service.mapper.CustomerMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

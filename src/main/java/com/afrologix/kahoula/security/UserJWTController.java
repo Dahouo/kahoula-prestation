@@ -1,4 +1,4 @@
-package com.afrologix.kahoula.web.rest;
+package com.afrologix.kahoula.security;
 
 import com.afrologix.kahoula.security.jwt.JWTFilter;
 import com.afrologix.kahoula.security.jwt.TokenProvider;

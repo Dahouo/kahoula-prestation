@@ -1,4 +1,4 @@
-package com.afrologix.kahoula.service.dto;
+package com.afrologix.kahoula.resources.Region;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
