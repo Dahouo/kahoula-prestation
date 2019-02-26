@@ -1,6 +1,7 @@
 package com.afrologix.kahoula.resources.User;
 
 
+import com.afrologix.kahoula.repository.UserRepository;
 import com.afrologix.kahoula.security.SecurityUtils;
 import com.afrologix.kahoula.service.MailService;
 import com.afrologix.kahoula.resources.PasswordChangeDTO;

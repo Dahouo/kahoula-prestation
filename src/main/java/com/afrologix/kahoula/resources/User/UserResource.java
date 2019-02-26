@@ -1,6 +1,8 @@
 package com.afrologix.kahoula.resources.User;
 
 import com.afrologix.kahoula.config.Constants;
+import com.afrologix.kahoula.repository.UserRepository;
+import com.afrologix.kahoula.repository.search.UserSearchRepository;
 import com.afrologix.kahoula.security.AuthoritiesConstants;
 import com.afrologix.kahoula.service.MailService;
 import com.afrologix.kahoula.web.rest.errors.BadRequestAlertException;

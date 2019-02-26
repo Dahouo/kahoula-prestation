@@ -1,4 +1,4 @@
-package com.afrologix.kahoula.resources.City;
+package com.afrologix.kahoula.repository;
 
 import com.afrologix.kahoula.resources.City.City;
 import org.springframework.data.mongodb.repository.MongoRepository;

@@ -2,7 +2,7 @@ package com.afrologix.kahoula.web.rest;
 
 import com.afrologix.kahoula.KahoulaPrestationApp;
 import com.afrologix.kahoula.resources.User.User;
-import com.afrologix.kahoula.resources.User.UserRepository;
+import com.afrologix.kahoula.repository.UserRepository;
 import com.afrologix.kahoula.security.UserJWTController;
 import com.afrologix.kahoula.security.jwt.TokenProvider;
 import com.afrologix.kahoula.web.rest.errors.ExceptionTranslator;

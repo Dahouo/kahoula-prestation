@@ -2,6 +2,8 @@ package com.afrologix.kahoula.web.rest;
 
 import com.afrologix.kahoula.KahoulaPrestationApp;
 
+import com.afrologix.kahoula.repository.CityRepository;
+import com.afrologix.kahoula.repository.search.CitySearchRepository;
 import com.afrologix.kahoula.resources.City.*;
 import com.afrologix.kahoula.web.rest.errors.ExceptionTranslator;
 

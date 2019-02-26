@@ -2,6 +2,7 @@ package com.afrologix.kahoula.web.rest;
 
 import com.afrologix.kahoula.KahoulaPrestationApp;
 import com.afrologix.kahoula.config.Constants;
+import com.afrologix.kahoula.repository.UserRepository;
 import com.afrologix.kahoula.resources.Authority;
 import com.afrologix.kahoula.resources.User.*;
 import com.afrologix.kahoula.repository.AuthorityRepository;

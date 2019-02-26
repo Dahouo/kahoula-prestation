@@ -1,4 +1,4 @@
-package com.afrologix.kahoula.resources.Customer;
+package com.afrologix.kahoula.repository.search;
 
 import com.afrologix.kahoula.resources.Customer.Customer;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;

@@ -1,5 +1,7 @@
 package com.afrologix.kahoula.resources.Partner;
 
+import com.afrologix.kahoula.repository.PartnerRepository;
+import com.afrologix.kahoula.repository.search.PartnerSearchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

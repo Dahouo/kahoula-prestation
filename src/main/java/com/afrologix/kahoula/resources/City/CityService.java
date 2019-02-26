@@ -1,5 +1,7 @@
 package com.afrologix.kahoula.resources.City;
 
+import com.afrologix.kahoula.repository.CityRepository;
+import com.afrologix.kahoula.repository.search.CitySearchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

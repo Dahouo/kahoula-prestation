@@ -1,5 +1,7 @@
 package com.afrologix.kahoula.resources.JobBid;
 
+import com.afrologix.kahoula.repository.JobBidRepository;
+import com.afrologix.kahoula.repository.search.JobBidSearchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -2,7 +2,7 @@ package com.afrologix.kahoula.security;
 
 import com.afrologix.kahoula.KahoulaPrestationApp;
 import com.afrologix.kahoula.resources.User.User;
-import com.afrologix.kahoula.resources.User.UserRepository;
+import com.afrologix.kahoula.repository.UserRepository;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;

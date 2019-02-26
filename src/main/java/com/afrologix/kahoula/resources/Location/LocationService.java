@@ -1,5 +1,7 @@
 package com.afrologix.kahoula.resources.Location;
 
+import com.afrologix.kahoula.repository.LocationRepository;
+import com.afrologix.kahoula.repository.search.LocationSearchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

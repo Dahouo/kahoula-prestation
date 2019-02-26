@@ -1,6 +1,8 @@
 package com.afrologix.kahoula.resources.User;
 
 import com.afrologix.kahoula.config.Constants;
+import com.afrologix.kahoula.repository.UserRepository;
+import com.afrologix.kahoula.repository.search.UserSearchRepository;
 import com.afrologix.kahoula.resources.Authority;
 import com.afrologix.kahoula.repository.AuthorityRepository;
 import com.afrologix.kahoula.security.AuthoritiesConstants;

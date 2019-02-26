@@ -1,5 +1,7 @@
 package com.afrologix.kahoula.resources.Customer;
 
+import com.afrologix.kahoula.repository.CustomerRepository;
+import com.afrologix.kahoula.repository.search.CustomerSearchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

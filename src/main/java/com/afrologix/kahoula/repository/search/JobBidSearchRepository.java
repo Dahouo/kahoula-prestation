@@ -1,4 +1,4 @@
-package com.afrologix.kahoula.resources.JobBid;
+package com.afrologix.kahoula.repository.search;
 
 import com.afrologix.kahoula.resources.JobBid.JobBid;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;

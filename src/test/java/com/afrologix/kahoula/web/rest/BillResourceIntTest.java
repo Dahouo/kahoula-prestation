@@ -2,6 +2,8 @@ package com.afrologix.kahoula.web.rest;
 
 import com.afrologix.kahoula.KahoulaPrestationApp;
 
+import com.afrologix.kahoula.repository.BillRepository;
+import com.afrologix.kahoula.repository.search.BillSearchRepository;
 import com.afrologix.kahoula.resources.Bill.*;
 import com.afrologix.kahoula.resources.Bill.BillService;
 import com.afrologix.kahoula.resources.JobBid.JobBid;

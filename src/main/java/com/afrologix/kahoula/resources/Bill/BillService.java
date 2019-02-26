@@ -1,5 +1,7 @@
 package com.afrologix.kahoula.resources.Bill;
 
+import com.afrologix.kahoula.repository.BillRepository;
+import com.afrologix.kahoula.repository.search.BillSearchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
