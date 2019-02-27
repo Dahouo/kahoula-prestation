@@ -1,7 +1,6 @@
 package com.afrologix.kahoula.resources.Partner;
 
 import com.afrologix.kahoula.repository.PartnerRepository;
-import com.afrologix.kahoula.repository.search.PartnerSearchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,8 +11,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing Partner.
@@ -27,12 +24,9 @@ public class PartnerService {
 
     private final PartnerMapper partnerMapper;
 
-    private final PartnerSearchRepository partnerSearchRepository;
-
-    public PartnerService(PartnerRepository partnerRepository, PartnerMapper partnerMapper, PartnerSearchRepository partnerSearchRepository) {
+    public PartnerService(PartnerRepository partnerRepository, PartnerMapper partnerMapper) {
         this.partnerRepository = partnerRepository;
         this.partnerMapper = partnerMapper;
-        this.partnerSearchRepository = partnerSearchRepository;
     }
 
     /**
@@ -46,7 +40,7 @@ public class PartnerService {
         Partner partner = partnerMapper.toEntity(partnerDTO);
         partner = partnerRepository.save(partner);
         PartnerDTO result = partnerMapper.toDto(partner);
-        partnerSearchRepository.save(partner);
+//        partnerSearchRepository.save(partner);
         return result;
     }
 
@@ -81,8 +75,9 @@ public class PartnerService {
      * @param id the id of the entity
      */
     public void delete(String id) {
-        log.debug("Request to delete Partner : {}", id);        partnerRepository.deleteById(id);
-        partnerSearchRepository.deleteById(id);
+        log.debug("Request to delete Partner : {}", id);
+        partnerRepository.deleteById(id);
+//        partnerSearchRepository.deleteById(id);
     }
 
     /**
@@ -91,11 +86,11 @@ public class PartnerService {
      * @param query the query of the search
      * @return the list of entities
      */
-    public List<PartnerDTO> search(String query) {
-        log.debug("Request to search Partners for query {}", query);
-        return StreamSupport
-            .stream(partnerSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(partnerMapper::toDto)
-            .collect(Collectors.toList());
-    }
+//    public List<PartnerDTO> search(String query) {
+//        log.debug("Request to search Partners for query {}", query);
+//        return StreamSupport
+//            .stream(partnerSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+//            .map(partnerMapper::toDto)
+//            .collect(Collectors.toList());
+//    }
 }

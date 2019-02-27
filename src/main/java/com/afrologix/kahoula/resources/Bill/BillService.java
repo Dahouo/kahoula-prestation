@@ -1,7 +1,6 @@
 package com.afrologix.kahoula.resources.Bill;
 
 import com.afrologix.kahoula.repository.BillRepository;
-import com.afrologix.kahoula.repository.search.BillSearchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,8 +11,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing Bill.
@@ -27,12 +24,10 @@ public class BillService {
 
     private final BillMapper billMapper;
 
-    private final BillSearchRepository billSearchRepository;
 
-    public BillService(BillRepository billRepository, BillMapper billMapper, BillSearchRepository billSearchRepository) {
+    public BillService(BillRepository billRepository, BillMapper billMapper) {
         this.billRepository = billRepository;
         this.billMapper = billMapper;
-        this.billSearchRepository = billSearchRepository;
     }
 
     /**
@@ -46,7 +41,7 @@ public class BillService {
         Bill bill = billMapper.toEntity(billDTO);
         bill = billRepository.save(bill);
         BillDTO result = billMapper.toDto(bill);
-        billSearchRepository.save(bill);
+//        billSearchRepository.save(bill);
         return result;
     }
 
@@ -81,8 +76,9 @@ public class BillService {
      * @param id the id of the entity
      */
     public void delete(String id) {
-        log.debug("Request to delete Bill : {}", id);        billRepository.deleteById(id);
-        billSearchRepository.deleteById(id);
+        log.debug("Request to delete Bill : {}", id);
+        billRepository.deleteById(id);
+//        billSearchRepository.deleteById(id);
     }
 
     /**
@@ -91,11 +87,11 @@ public class BillService {
      * @param query the query of the search
      * @return the list of entities
      */
-    public List<BillDTO> search(String query) {
-        log.debug("Request to search Bills for query {}", query);
-        return StreamSupport
-            .stream(billSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(billMapper::toDto)
-            .collect(Collectors.toList());
-    }
+//    public List<BillDTO> search(String query) {
+//        log.debug("Request to search Bills for query {}", query);
+//        return StreamSupport
+//            .stream(billSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+//            .map(billMapper::toDto)
+//            .collect(Collectors.toList());
+//    }
 }

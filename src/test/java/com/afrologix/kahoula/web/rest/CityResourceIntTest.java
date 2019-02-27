@@ -3,7 +3,6 @@ package com.afrologix.kahoula.web.rest;
 import com.afrologix.kahoula.KahoulaPrestationApp;
 
 import com.afrologix.kahoula.repository.CityRepository;
-import com.afrologix.kahoula.repository.search.CitySearchRepository;
 import com.afrologix.kahoula.resources.City.*;
 import com.afrologix.kahoula.web.rest.errors.ExceptionTranslator;
 
@@ -27,7 +26,6 @@ import java.util.List;
 
 import static com.afrologix.kahoula.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -57,10 +55,10 @@ public class CityResourceIntTest {
     /**
      * This repository is mocked in the com.afrologix.kahoula.repository.search test package.
      *
-     * @see com.afrologix.kahoula.repository.search.CitySearchRepositoryMockConfiguration
+//     * @see com.afrologix.kahoula.repository.search.CitySearchRepositoryMockConfiguration
      */
-    @Autowired
-    private CitySearchRepository mockCitySearchRepository;
+//    @Autowired
+//    private CitySearchRepository mockCitySearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -126,7 +124,7 @@ public class CityResourceIntTest {
         assertThat(testCity.getName()).isEqualTo(DEFAULT_NAME);
 
         // Validate the City in Elasticsearch
-        verify(mockCitySearchRepository, times(1)).save(testCity);
+//        verify(mockCitySearchRepository, times(1)).save(testCity);
     }
 
     @Test
@@ -148,7 +146,7 @@ public class CityResourceIntTest {
         assertThat(cityList).hasSize(databaseSizeBeforeCreate);
 
         // Validate the City in Elasticsearch
-        verify(mockCitySearchRepository, times(0)).save(city);
+//        verify(mockCitySearchRepository, times(0)).save(city);
     }
 
     @Test
@@ -227,7 +225,7 @@ public class CityResourceIntTest {
         assertThat(testCity.getName()).isEqualTo(UPDATED_NAME);
 
         // Validate the City in Elasticsearch
-        verify(mockCitySearchRepository, times(1)).save(testCity);
+//        verify(mockCitySearchRepository, times(1)).save(testCity);
     }
 
     @Test
@@ -248,7 +246,7 @@ public class CityResourceIntTest {
         assertThat(cityList).hasSize(databaseSizeBeforeUpdate);
 
         // Validate the City in Elasticsearch
-        verify(mockCitySearchRepository, times(0)).save(city);
+//        verify(mockCitySearchRepository, times(0)).save(city);
     }
 
     @Test
@@ -268,22 +266,22 @@ public class CityResourceIntTest {
         assertThat(cityList).hasSize(databaseSizeBeforeDelete - 1);
 
         // Validate the City in Elasticsearch
-        verify(mockCitySearchRepository, times(1)).deleteById(city.getId());
+//        verify(mockCitySearchRepository, times(1)).deleteById(city.getId());
     }
 
-    @Test
-    public void searchCity() throws Exception {
-        // Initialize the database
-        cityRepository.save(city);
-        when(mockCitySearchRepository.search(queryStringQuery("id:" + city.getId())))
-            .thenReturn(Collections.singletonList(city));
-        // Search the city
-        restCityMockMvc.perform(get("/api/_search/cities?query=id:" + city.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(city.getId())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
-    }
+//    @Test
+//    public void searchCity() throws Exception {
+//        // Initialize the database
+//        cityRepository.save(city);
+//        when(mockCitySearchRepository.search(queryStringQuery("id:" + city.getId())))
+//            .thenReturn(Collections.singletonList(city));
+//        // Search the city
+//        restCityMockMvc.perform(get("/api/_search/cities?query=id:" + city.getId()))
+//            .andExpect(status().isOk())
+//            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+//            .andExpect(jsonPath("$.[*].id").value(hasItem(city.getId())))
+//            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
+//    }
 
     @Test
     public void equalsVerifier() throws Exception {

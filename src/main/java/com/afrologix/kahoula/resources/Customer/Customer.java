@@ -16,7 +16,7 @@ import java.util.Objects;
  * @author arnaud.
  */
 @Document(collection = "customer")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "customer")
+//@org.springframework.data.elasticsearch.annotations.Document(indexName = "customer")
 public class Customer extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

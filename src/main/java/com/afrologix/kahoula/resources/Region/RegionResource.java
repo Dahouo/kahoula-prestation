@@ -115,10 +115,10 @@ public class RegionResource {
      * @param query the query of the region search
      * @return the result of the search
      */
-    @GetMapping("/_search/regions")
-    public List<RegionDTO> searchRegions(@RequestParam String query) {
-        log.debug("REST request to search Regions for query {}", query);
-        return regionService.search(query);
-    }
+//    @GetMapping("/_search/regions")
+//    public List<RegionDTO> searchRegions(@RequestParam String query) {
+//        log.debug("REST request to search Regions for query {}", query);
+//        return regionService.search(query);
+//    }
 
 }

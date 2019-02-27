@@ -115,10 +115,10 @@ public class CityResource {
      * @param query the query of the city search
      * @return the result of the search
      */
-    @GetMapping("/_search/cities")
-    public List<CityDTO> searchCities(@RequestParam String query) {
-        log.debug("REST request to search Cities for query {}", query);
-        return cityService.search(query);
-    }
+//    @GetMapping("/_search/cities")
+//    public List<CityDTO> searchCities(@RequestParam String query) {
+//        log.debug("REST request to search Cities for query {}", query);
+//        return cityService.search(query);
+//    }
 
 }

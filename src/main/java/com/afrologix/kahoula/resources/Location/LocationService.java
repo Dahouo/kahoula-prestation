@@ -1,7 +1,6 @@
 package com.afrologix.kahoula.resources.Location;
 
 import com.afrologix.kahoula.repository.LocationRepository;
-import com.afrologix.kahoula.repository.search.LocationSearchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,8 +11,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing Location.
@@ -27,12 +24,9 @@ public class LocationService {
 
     private final LocationMapper locationMapper;
 
-    private final LocationSearchRepository locationSearchRepository;
-
-    public LocationService(LocationRepository locationRepository, LocationMapper locationMapper, LocationSearchRepository locationSearchRepository) {
+    public LocationService(LocationRepository locationRepository, LocationMapper locationMapper) {
         this.locationRepository = locationRepository;
         this.locationMapper = locationMapper;
-        this.locationSearchRepository = locationSearchRepository;
     }
 
     /**
@@ -46,7 +40,7 @@ public class LocationService {
         Location location = locationMapper.toEntity(locationDTO);
         location = locationRepository.save(location);
         LocationDTO result = locationMapper.toDto(location);
-        locationSearchRepository.save(location);
+//        locationSearchRepository.save(location);
         return result;
     }
 
@@ -81,8 +75,9 @@ public class LocationService {
      * @param id the id of the entity
      */
     public void delete(String id) {
-        log.debug("Request to delete Location : {}", id);        locationRepository.deleteById(id);
-        locationSearchRepository.deleteById(id);
+        log.debug("Request to delete Location : {}", id);
+        locationRepository.deleteById(id);
+//        locationSearchRepository.deleteById(id);
     }
 
     /**
@@ -91,11 +86,11 @@ public class LocationService {
      * @param query the query of the search
      * @return the list of entities
      */
-    public List<LocationDTO> search(String query) {
-        log.debug("Request to search Locations for query {}", query);
-        return StreamSupport
-            .stream(locationSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(locationMapper::toDto)
-            .collect(Collectors.toList());
-    }
+//    public List<LocationDTO> search(String query) {
+//        log.debug("Request to search Locations for query {}", query);
+//        return StreamSupport
+//            .stream(locationSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+//            .map(locationMapper::toDto)
+//            .collect(Collectors.toList());
+//    }
 }

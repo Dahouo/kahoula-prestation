@@ -17,7 +17,7 @@ import java.util.Objects;
  * @author arnaud.
  */
 @Document(collection = "partner")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "partner")
+//@org.springframework.data.elasticsearch.annotations.Document(indexName = "partner")
 public class Partner extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -115,10 +115,10 @@ public class LocationResource {
      * @param query the query of the location search
      * @return the result of the search
      */
-    @GetMapping("/_search/locations")
-    public List<LocationDTO> searchLocations(@RequestParam String query) {
-        log.debug("REST request to search Locations for query {}", query);
-        return locationService.search(query);
-    }
+//    @GetMapping("/_search/locations")
+//    public List<LocationDTO> searchLocations(@RequestParam String query) {
+//        log.debug("REST request to search Locations for query {}", query);
+//        return locationService.search(query);
+//    }
 
 }

@@ -30,7 +30,7 @@ import java.time.Instant;
  */
 
 @org.springframework.data.mongodb.core.mapping.Document(collection = "jhi_user")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "user")
+//@org.springframework.data.elasticsearch.annotations.Document(indexName = "user")
 public class User extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -63,7 +63,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     private boolean activated = false;
 
-    @NotNull
     @Field("location")
     @DBRef
     private Location location;
@@ -72,7 +71,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @DBRef
     private Language language;
 
-    @NotNull
+    //@NotNull
     @Field("type")
     @DBRef
     private UserType type;

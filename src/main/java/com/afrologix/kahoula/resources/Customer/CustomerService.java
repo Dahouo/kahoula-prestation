@@ -1,7 +1,6 @@
 package com.afrologix.kahoula.resources.Customer;
 
 import com.afrologix.kahoula.repository.CustomerRepository;
-import com.afrologix.kahoula.repository.search.CustomerSearchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,8 +11,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing Customer.
@@ -27,12 +24,9 @@ public class CustomerService {
 
     private final CustomerMapper customerMapper;
 
-    private final CustomerSearchRepository customerSearchRepository;
-
-    public CustomerService(CustomerRepository customerRepository, CustomerMapper customerMapper, CustomerSearchRepository customerSearchRepository) {
+    public CustomerService(CustomerRepository customerRepository, CustomerMapper customerMapper) {
         this.customerRepository = customerRepository;
         this.customerMapper = customerMapper;
-        this.customerSearchRepository = customerSearchRepository;
     }
 
     /**
@@ -46,7 +40,7 @@ public class CustomerService {
         Customer customer = customerMapper.toEntity(customerDTO);
         customer = customerRepository.save(customer);
         CustomerDTO result = customerMapper.toDto(customer);
-        customerSearchRepository.save(customer);
+//        customerSearchRepository.save(customer);
         return result;
     }
 
@@ -81,8 +75,9 @@ public class CustomerService {
      * @param id the id of the entity
      */
     public void delete(String id) {
-        log.debug("Request to delete Customer : {}", id);        customerRepository.deleteById(id);
-        customerSearchRepository.deleteById(id);
+        log.debug("Request to delete Customer : {}", id);
+        customerRepository.deleteById(id);
+//        customerSearchRepository.deleteById(id);
     }
 
     /**
@@ -91,11 +86,11 @@ public class CustomerService {
      * @param query the query of the search
      * @return the list of entities
      */
-    public List<CustomerDTO> search(String query) {
-        log.debug("Request to search Customers for query {}", query);
-        return StreamSupport
-            .stream(customerSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(customerMapper::toDto)
-            .collect(Collectors.toList());
-    }
+//    public List<CustomerDTO> search(String query) {
+//        log.debug("Request to search Customers for query {}", query);
+//        return StreamSupport
+//            .stream(customerSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+//            .map(customerMapper::toDto)
+//            .collect(Collectors.toList());
+//    }
 }

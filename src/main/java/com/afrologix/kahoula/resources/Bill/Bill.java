@@ -19,7 +19,7 @@ import com.afrologix.kahoula.resources.enumeration.BillStatus;
  * @author arnaud.
  */
 @Document(collection = "bill")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "bill")
+//@org.springframework.data.elasticsearch.annotations.Document(indexName = "bill", type = "bill")
 public class Bill extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

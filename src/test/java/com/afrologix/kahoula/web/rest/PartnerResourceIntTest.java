@@ -2,6 +2,7 @@
 //
 //import com.afrologix.kahoula.KahoulaPrestationApp;
 //
+//import com.afrologix.kahoula.repository.PartnerRepository;
 //import com.afrologix.kahoula.resources.Partner.*;
 //import com.afrologix.kahoula.web.rest.errors.ExceptionTranslator;
 //

@@ -3,6 +3,7 @@ package com.afrologix.kahoula.config.dbmigrations;
 import com.afrologix.kahoula.resources.Authority;
 import com.afrologix.kahoula.resources.Location.Location;
 import com.afrologix.kahoula.resources.User.User;
+import com.afrologix.kahoula.resources.enumeration.UserType;
 import com.afrologix.kahoula.security.AuthoritiesConstants;
 
 import com.github.mongobee.changeset.ChangeLog;
@@ -43,7 +44,8 @@ public class InitialSetupMigration {
         systemUser.setEmail("system@localhost");
         systemUser.setActivated(true);
         systemUser.setLangKey("fr");
-        systemUser.setLocation(new Location());
+//        systemUser.setLocation(new Location());
+//        systemUser.setType(UserType.PARTNER);
         systemUser.setCreatedBy(systemUser.getLogin());
         systemUser.setCreatedDate(Instant.now());
         systemUser.getAuthorities().add(adminAuthority);
@@ -59,7 +61,8 @@ public class InitialSetupMigration {
         anonymousUser.setEmail("anonymous@localhost");
         anonymousUser.setActivated(true);
         anonymousUser.setLangKey("fr");
-        anonymousUser.setLocation(new Location());
+//        anonymousUser.setLocation(new Location());
+//        anonymousUser.setType(UserType.CUSTOMER);
         anonymousUser.setCreatedBy(systemUser.getLogin());
         anonymousUser.setCreatedDate(Instant.now());
         mongoTemplate.save(anonymousUser);
@@ -73,7 +76,8 @@ public class InitialSetupMigration {
         adminUser.setEmail("admin@localhost");
         adminUser.setActivated(true);
         adminUser.setLangKey("fr");
-        adminUser.setLocation(new Location());
+//        adminUser.setLocation(new Location());
+//        adminUser.setType(UserType.PARTNER);
         adminUser.setCreatedBy(systemUser.getLogin());
         adminUser.setCreatedDate(Instant.now());
         adminUser.getAuthorities().add(adminAuthority);
@@ -89,7 +93,8 @@ public class InitialSetupMigration {
         userUser.setEmail("user@localhost");
         userUser.setActivated(true);
         userUser.setLangKey("fr");
-        userUser.setLocation(new Location());
+        //userUser.setLocation(new Location());
+//        userUser.setType(UserType.CUSTOMER);
         userUser.setCreatedBy(systemUser.getLogin());
         userUser.setCreatedDate(Instant.now());
         userUser.getAuthorities().add(userAuthority);

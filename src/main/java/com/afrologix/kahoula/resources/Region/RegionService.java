@@ -1,7 +1,6 @@
 package com.afrologix.kahoula.resources.Region;
 
 import com.afrologix.kahoula.repository.RegionRepository;
-import com.afrologix.kahoula.repository.search.RegionSearchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,8 +11,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing Region.
@@ -27,12 +24,9 @@ public class RegionService {
 
     private final RegionMapper regionMapper;
 
-    private final RegionSearchRepository regionSearchRepository;
-
-    public RegionService(RegionRepository regionRepository, RegionMapper regionMapper, RegionSearchRepository regionSearchRepository) {
+    public RegionService(RegionRepository regionRepository, RegionMapper regionMapper) {
         this.regionRepository = regionRepository;
         this.regionMapper = regionMapper;
-        this.regionSearchRepository = regionSearchRepository;
     }
 
     /**
@@ -46,7 +40,7 @@ public class RegionService {
         Region region = regionMapper.toEntity(regionDTO);
         region = regionRepository.save(region);
         RegionDTO result = regionMapper.toDto(region);
-        regionSearchRepository.save(region);
+//        regionSearchRepository.save(region);
         return result;
     }
 
@@ -81,8 +75,9 @@ public class RegionService {
      * @param id the id of the entity
      */
     public void delete(String id) {
-        log.debug("Request to delete Region : {}", id);        regionRepository.deleteById(id);
-        regionSearchRepository.deleteById(id);
+        log.debug("Request to delete Region : {}", id);
+        regionRepository.deleteById(id);
+//        regionSearchRepository.deleteById(id);
     }
 
     /**
@@ -91,11 +86,11 @@ public class RegionService {
      * @param query the query of the search
      * @return the list of entities
      */
-    public List<RegionDTO> search(String query) {
-        log.debug("Request to search Regions for query {}", query);
-        return StreamSupport
-            .stream(regionSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(regionMapper::toDto)
-            .collect(Collectors.toList());
-    }
+//    public List<RegionDTO> search(String query) {
+//        log.debug("Request to search Regions for query {}", query);
+//        return StreamSupport
+//            .stream(regionSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+//            .map(regionMapper::toDto)
+//            .collect(Collectors.toList());
+//    }
 }

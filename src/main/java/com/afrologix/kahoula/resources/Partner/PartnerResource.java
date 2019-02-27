@@ -1,4 +1,5 @@
 package com.afrologix.kahoula.resources.Partner;
+
 import com.afrologix.kahoula.web.rest.errors.BadRequestAlertException;
 import com.afrologix.kahoula.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -115,10 +116,10 @@ public class PartnerResource {
      * @param query the query of the partner search
      * @return the result of the search
      */
-    @GetMapping("/_search/partners")
-    public List<PartnerDTO> searchPartners(@RequestParam String query) {
-        log.debug("REST request to search Partners for query {}", query);
-        return partnerService.search(query);
-    }
+//    @GetMapping("/_search/partners")
+//    public List<PartnerDTO> searchPartners(@RequestParam String query) {
+//        log.debug("REST request to search Partners for query {}", query);
+//        return partnerService.search(query);
+//    }
 
 }

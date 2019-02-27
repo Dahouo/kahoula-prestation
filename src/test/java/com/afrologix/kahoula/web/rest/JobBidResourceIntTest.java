@@ -2,6 +2,7 @@
 //
 //import com.afrologix.kahoula.KahoulaPrestationApp;
 //
+//import com.afrologix.kahoula.repository.JobBidRepository;
 //import com.afrologix.kahoula.resources.JobBid.*;
 //import com.afrologix.kahoula.web.rest.errors.ExceptionTranslator;
 //
@@ -23,6 +24,7 @@
 //
 //import java.time.Instant;
 //import java.time.temporal.ChronoUnit;
+//import java.util.Arrays;
 //import java.util.Collections;
 //import java.util.List;
 //
@@ -82,10 +84,10 @@
 //    /**
 //     * This repository is mocked in the com.afrologix.kahoula.repository.search test package.
 //     *
-//     * @see com.afrologix.kahoula.repository.search.JobBidSearchRepositoryMockConfiguration
-//     */
-//    @Autowired
-//    private JobBidSearchRepository mockJobBidSearchRepository;
+////     * @see com.afrologix.kahoula.repository.search.JobBidSearchRepositoryMockConfiguration
+////     */
+////    @Autowired
+////    private JobBidSearchRepository mockJobBidSearchRepository;
 //
 //    @Autowired
 //    private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -122,11 +124,12 @@
 //     * if they test an entity which requires the current entity.
 //     */
 //    public static JobBid createEntity() {
+//        List<JobType> jobTypeList = Arrays.asList(JobType.ELECTRICITE,JobType.PEINTURE);
 //        JobBid jobBid = new JobBid()
 //            .description(DEFAULT_DESCRIPTION)
-//            .type(DEFAULT_TYPE)
+//            .type(jobTypeList)
 //            .wishDate(DEFAULT_WISH_DATE)
-//            .customerId(DEFAULT_CUSTOMER_ID)
+//            .customerId()
 //            .location(DEFAULT_LOCATION)
 //            .partnerId(DEFAULT_PARTNER_ID)
 //            .amount(DEFAULT_AMOUNT)

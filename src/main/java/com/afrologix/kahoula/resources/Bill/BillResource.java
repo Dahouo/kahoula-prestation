@@ -115,10 +115,10 @@ public class BillResource {
      * @param query the query of the bill search
      * @return the result of the search
      */
-    @GetMapping("/_search/bills")
-    public List<BillDTO> searchBills(@RequestParam String query) {
-        log.debug("REST request to search Bills for query {}", query);
-        return billService.search(query);
-    }
+//    @GetMapping("/_search/bills")
+//    public List<BillDTO> searchBills(@RequestParam String query) {
+//        log.debug("REST request to search Bills for query {}", query);
+//        return billService.search(query);
+//    }
 
 }

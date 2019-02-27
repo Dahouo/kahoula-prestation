@@ -3,7 +3,6 @@ package com.afrologix.kahoula.service;
 import com.afrologix.kahoula.KahoulaPrestationApp;
 import com.afrologix.kahoula.config.Constants;
 import com.afrologix.kahoula.resources.User.User;
-import com.afrologix.kahoula.repository.search.UserSearchRepository;
 import com.afrologix.kahoula.repository.UserRepository;
 import com.afrologix.kahoula.resources.User.UserService;
 import com.afrologix.kahoula.resources.User.UserDTO;
@@ -46,10 +45,10 @@ public class UserServiceIntTest {
     /**
      * This repository is mocked in the com.afrologix.kahoula.repository.search test package.
      *
-     * @see com.afrologix.kahoula.repository.search.UserSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private UserSearchRepository mockUserSearchRepository;
+//     * @see com.afrologix.kahoula.repository.search.UserSearchRepositoryMockConfiguration
+//     */
+//    @Autowired
+//    private UserSearchRepository mockUserSearchRepository;
 
     private User user;
 
@@ -150,7 +149,7 @@ public class UserServiceIntTest {
         assertThat(users).isEmpty();
 
         // Verify Elasticsearch mock
-        verify(mockUserSearchRepository, times(1)).delete(user);
+//        verify(mockUserSearchRepository, times(1)).delete(user);
     }
 
     @Test
@@ -181,7 +180,7 @@ public class UserServiceIntTest {
         assertThat(userRepository.findOneByLogin("johndoe")).isNotPresent();
 
         // Verify Elasticsearch mock
-        verify(mockUserSearchRepository, times(1)).delete(user);
+//        verify(mockUserSearchRepository, times(1)).delete(user);
     }
 
 }

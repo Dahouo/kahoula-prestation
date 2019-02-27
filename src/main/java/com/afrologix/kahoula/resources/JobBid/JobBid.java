@@ -25,7 +25,7 @@ import com.afrologix.kahoula.resources.enumeration.JobStatus;
  * @author arnaud.
  */
 @Document(collection = "job_bid")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "jobbid")
+//@org.springframework.data.elasticsearch.annotations.Document(indexName = "jobbid")
 public class JobBid extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

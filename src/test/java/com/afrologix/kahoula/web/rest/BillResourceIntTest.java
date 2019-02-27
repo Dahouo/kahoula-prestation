@@ -3,7 +3,6 @@ package com.afrologix.kahoula.web.rest;
 import com.afrologix.kahoula.KahoulaPrestationApp;
 
 import com.afrologix.kahoula.repository.BillRepository;
-import com.afrologix.kahoula.repository.search.BillSearchRepository;
 import com.afrologix.kahoula.resources.Bill.*;
 import com.afrologix.kahoula.resources.Bill.BillService;
 import com.afrologix.kahoula.resources.JobBid.JobBid;
@@ -29,7 +28,6 @@ import java.util.List;
 
 import static com.afrologix.kahoula.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -72,10 +70,10 @@ public class BillResourceIntTest {
     /**
      * This repository is mocked in the com.afrologix.kahoula.repository.search test package.
      *
-     * @see com.afrologix.kahoula.repository.search.BillSearchRepositoryMockConfiguration
+//     * @see com.afrologix.kahoula.repository.search.BillSearchRepositoryMockConfiguration
      */
-    @Autowired
-    private BillSearchRepository mockBillSearchRepository;
+//    @Autowired
+//    private BillSearchRepository mockBillSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -149,7 +147,7 @@ public class BillResourceIntTest {
         assertThat(testBill.getStatus()).isEqualTo(DEFAULT_STATUS);
 
         // Validate the Bill in Elasticsearch
-        verify(mockBillSearchRepository, times(1)).save(testBill);
+//        verify(mockBillSearchRepository, times(1)).save(testBill);
     }
 
     @Test
@@ -171,7 +169,7 @@ public class BillResourceIntTest {
         assertThat(billList).hasSize(databaseSizeBeforeCreate);
 
         // Validate the Bill in Elasticsearch
-        verify(mockBillSearchRepository, times(0)).save(bill);
+//        verify(mockBillSearchRepository, times(0)).save(bill);
     }
 
     @Test
@@ -302,7 +300,7 @@ public class BillResourceIntTest {
         assertThat(testBill.getStatus()).isEqualTo(UPDATED_STATUS);
 
         // Validate the Bill in Elasticsearch
-        verify(mockBillSearchRepository, times(1)).save(testBill);
+//        verify(mockBillSearchRepository, times(1)).save(testBill);
     }
 
     @Test
@@ -323,7 +321,7 @@ public class BillResourceIntTest {
         assertThat(billList).hasSize(databaseSizeBeforeUpdate);
 
         // Validate the Bill in Elasticsearch
-        verify(mockBillSearchRepository, times(0)).save(bill);
+//        verify(mockBillSearchRepository, times(0)).save(bill);
     }
 
     @Test
@@ -343,26 +341,26 @@ public class BillResourceIntTest {
         assertThat(billList).hasSize(databaseSizeBeforeDelete - 1);
 
         // Validate the Bill in Elasticsearch
-        verify(mockBillSearchRepository, times(1)).deleteById(bill.getId());
+//        verify(mockBillSearchRepository, times(1)).deleteById(bill.getId());
     }
 
-    @Test
-    public void searchBill() throws Exception {
-        // Initialize the database
-        billRepository.save(bill);
-        when(mockBillSearchRepository.search(queryStringQuery("id:" + bill.getId())))
-            .thenReturn(Collections.singletonList(bill));
-        // Search the bill
-        restBillMockMvc.perform(get("/api/_search/bills?query=id:" + bill.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(bill.getId())))
-            .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION)))
-            .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY.doubleValue())))
-            .andExpect(jsonPath("$.[*].unitPrice").value(hasItem(DEFAULT_UNIT_PRICE.doubleValue())))
-            .andExpect(jsonPath("$.[*].jobid").value(hasItem(DEFAULT_JOBID)))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
-    }
+//    @Test
+//    public void searchBill() throws Exception {
+//        // Initialize the database
+//        billRepository.save(bill);
+//        when(mockBillSearchRepository.search(queryStringQuery("id:" + bill.getId())))
+//            .thenReturn(Collections.singletonList(bill));
+//        // Search the bill
+//        restBillMockMvc.perform(get("/api/_search/bills?query=id:" + bill.getId()))
+//            .andExpect(status().isOk())
+//            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+//            .andExpect(jsonPath("$.[*].id").value(hasItem(bill.getId())))
+//            .andExpect(jsonPath("$.[*].designation").value(hasItem(DEFAULT_DESIGNATION)))
+//            .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY.doubleValue())))
+//            .andExpect(jsonPath("$.[*].unitPrice").value(hasItem(DEFAULT_UNIT_PRICE.doubleValue())))
+//            .andExpect(jsonPath("$.[*].jobid").value(hasItem(DEFAULT_JOBID)))
+//            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
+//    }
 
     @Test
     public void equalsVerifier() throws Exception {

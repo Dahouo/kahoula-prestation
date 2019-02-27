@@ -16,7 +16,6 @@ import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.convert.MongoCustomConversions;
@@ -29,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
-@EnableElasticsearchRepositories("com.afrologix.kahoula.repository.search")
+//@EnableElasticsearchRepositories("com.afrologix.kahoula.repository.search")
 @EnableMongoRepositories(basePackages = "com.afrologix.kahoula.repository", includeFilters = @Filter(type = FilterType.ASSIGNABLE_TYPE, value = MongoRepository.class))
 @Profile("!" + JHipsterConstants.SPRING_PROFILE_CLOUD)
 @Import(value = MongoAutoConfiguration.class)

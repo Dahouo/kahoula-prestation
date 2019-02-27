@@ -14,7 +14,7 @@ import java.util.Objects;
  * A City.
  */
 @Document(collection = "city")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "city")
+//@org.springframework.data.elasticsearch.annotations.Document(indexName = "city")
 public class City implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -114,10 +114,10 @@ public class CustomerResource {
      * @param query the query of the customer search
      * @return the result of the search
      */
-    @GetMapping("/_search/customers")
-    public List<CustomerDTO> searchCustomers(@RequestParam String query) {
-        log.debug("REST request to search Customers for query {}", query);
-        return customerService.search(query);
-    }
+//    @GetMapping("/_search/customers")
+//    public List<CustomerDTO> searchCustomers(@RequestParam String query) {
+//        log.debug("REST request to search Customers for query {}", query);
+//        return customerService.search(query);
+//    }
 
 }

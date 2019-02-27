@@ -123,12 +123,12 @@ public class JobBidResource {
      * @param pageable the pagination information
      * @return the result of the search
      */
-    @GetMapping("/_search/job-bids")
-    public ResponseEntity<List<JobBidDTO>> searchJobBids(@RequestParam String query, Pageable pageable) {
-        log.debug("REST request to search for a page of JobBids for query {}", query);
-        Page<JobBidDTO> page = jobBidService.search(query, pageable);
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/job-bids");
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
-    }
+//    @GetMapping("/_search/job-bids")
+//    public ResponseEntity<List<JobBidDTO>> searchJobBids(@RequestParam String query, Pageable pageable) {
+//        log.debug("REST request to search for a page of JobBids for query {}", query);
+//        Page<JobBidDTO> page = jobBidService.search(query, pageable);
+//        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/job-bids");
+//        return ResponseEntity.ok().headers(headers).body(page.getContent());
+//    }
 
 }

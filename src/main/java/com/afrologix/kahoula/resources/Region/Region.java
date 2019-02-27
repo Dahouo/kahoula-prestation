@@ -14,7 +14,7 @@ import java.util.Objects;
  * A Region.
  */
 @Document(collection = "region")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "region")
+//@org.springframework.data.elasticsearch.annotations.Document(indexName = "region")
 public class Region implements Serializable {
 
     private static final long serialVersionUID = 1L;

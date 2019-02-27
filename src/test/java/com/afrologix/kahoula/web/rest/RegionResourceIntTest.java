@@ -3,7 +3,6 @@ package com.afrologix.kahoula.web.rest;
 import com.afrologix.kahoula.KahoulaPrestationApp;
 
 import com.afrologix.kahoula.repository.RegionRepository;
-import com.afrologix.kahoula.repository.search.RegionSearchRepository;
 import com.afrologix.kahoula.resources.Region.*;
 import com.afrologix.kahoula.web.rest.errors.ExceptionTranslator;
 
@@ -27,7 +26,6 @@ import java.util.List;
 
 import static com.afrologix.kahoula.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -57,10 +55,10 @@ public class RegionResourceIntTest {
     /**
      * This repository is mocked in the com.afrologix.kahoula.repository.search test package.
      *
-     * @see com.afrologix.kahoula.repository.search.RegionSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private RegionSearchRepository mockRegionSearchRepository;
+//     * @see com.afrologix.kahoula.repository.search.RegionSearchRepositoryMockConfiguration
+//     */
+//    @Autowired
+//    private RegionSearchRepository mockRegionSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -126,7 +124,7 @@ public class RegionResourceIntTest {
         assertThat(testRegion.getName()).isEqualTo(DEFAULT_NAME);
 
         // Validate the Region in Elasticsearch
-        verify(mockRegionSearchRepository, times(1)).save(testRegion);
+//        verify(mockRegionSearchRepository, times(1)).save(testRegion);
     }
 
     @Test
@@ -148,7 +146,7 @@ public class RegionResourceIntTest {
         assertThat(regionList).hasSize(databaseSizeBeforeCreate);
 
         // Validate the Region in Elasticsearch
-        verify(mockRegionSearchRepository, times(0)).save(region);
+//        verify(mockRegionSearchRepository, times(0)).save(region);
     }
 
     @Test
@@ -227,7 +225,7 @@ public class RegionResourceIntTest {
         assertThat(testRegion.getName()).isEqualTo(UPDATED_NAME);
 
         // Validate the Region in Elasticsearch
-        verify(mockRegionSearchRepository, times(1)).save(testRegion);
+//        verify(mockRegionSearchRepository, times(1)).save(testRegion);
     }
 
     @Test
@@ -248,7 +246,7 @@ public class RegionResourceIntTest {
         assertThat(regionList).hasSize(databaseSizeBeforeUpdate);
 
         // Validate the Region in Elasticsearch
-        verify(mockRegionSearchRepository, times(0)).save(region);
+//        verify(mockRegionSearchRepository, times(0)).save(region);
     }
 
     @Test
@@ -268,22 +266,22 @@ public class RegionResourceIntTest {
         assertThat(regionList).hasSize(databaseSizeBeforeDelete - 1);
 
         // Validate the Region in Elasticsearch
-        verify(mockRegionSearchRepository, times(1)).deleteById(region.getId());
+//        verify(mockRegionSearchRepository, times(1)).deleteById(region.getId());
     }
 
-    @Test
-    public void searchRegion() throws Exception {
-        // Initialize the database
-        regionRepository.save(region);
-        when(mockRegionSearchRepository.search(queryStringQuery("id:" + region.getId())))
-            .thenReturn(Collections.singletonList(region));
-        // Search the region
-        restRegionMockMvc.perform(get("/api/_search/regions?query=id:" + region.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(region.getId())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
-    }
+//    @Test
+//    public void searchRegion() throws Exception {
+//        // Initialize the database
+//        regionRepository.save(region);
+//        when(mockRegionSearchRepository.search(queryStringQuery("id:" + region.getId())))
+//            .thenReturn(Collections.singletonList(region));
+//        // Search the region
+//        restRegionMockMvc.perform(get("/api/_search/regions?query=id:" + region.getId()))
+//            .andExpect(status().isOk())
+//            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+//            .andExpect(jsonPath("$.[*].id").value(hasItem(region.getId())))
+//            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
+//    }
 
     @Test
     public void equalsVerifier() throws Exception {
